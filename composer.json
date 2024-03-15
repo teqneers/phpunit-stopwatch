@@ -1,0 +1,59 @@
+{
+  "name": "teqneers/phpunit-stopwatch",
+  "description": "Extension to measure and analyse any part of your code in order to detect performance issues in phpunit/phpunit.",
+  "license": "MIT",
+  "type": "library",
+  "keywords": [
+    "phpunit",
+    "performance",
+    "slow",
+    "test",
+    "measure",
+    "stopwatch",
+    "time",
+    "extension"
+  ],
+  "authors": [
+    {
+      "name": "Oliver G. Mueller",
+      "email": "oliver@teqneers.de",
+      "homepage": "https://teqneers.de"
+    }
+  ],
+  "homepage": "https://github.com/teqneers/phpunit-stopwatch",
+  "support": {
+    "issues": "https://github.com/teqneers/phpunit-stopwatch/issues",
+    "source": "https://github.com/teqneers/phpunit-stopwatch",
+    "security": "https://github.com/teqneers/phpunit-stopwatch/blob/main/.github/SECURITY.md"
+  },
+  "require": {
+    "php": ">=8.1.0",
+    "phpunit/phpunit": "^10.0.0 || ^11.0.0"
+  },
+  "require-dev": {
+    "ergebnis/php-cs-fixer-config": "^6.23.0",
+    "fakerphp/faker": "^1.23.1",
+    "psalm/plugin-phpunit": "~0.18.4",
+    "rector/rector": "^1.0.2",
+    "vimeo/psalm": "^5.23.1"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "TQ\\Testing\\Extension\\Stopwatch\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TQ\\Testing\\Extension\\Stopwatch\\Test\\": "test/"
+    }
+  },
+  "config": {
+    "audit": {
+      "abandoned": "report"
+    },
+    "preferred-install": "dist",
+    "sort-packages": true
+  }
+}
