@@ -3,12 +3,12 @@
 namespace TQ\Testing\Extension\Stopwatch\Subscriber;
 
 use PHPUnit\Event\TestSuite\FinishedSubscriber;
-use TQ\Testing\Extension\Stopwatch\Stopwatch;
+use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
 class ResetForTestClassTearDown implements FinishedSubscriber
 {
     public function __construct(
-        private readonly Stopwatch $stopwatch
+        private readonly TimingCollector $stopwatch
     ) {
     }
 

@@ -37,7 +37,8 @@ class Extension implements Runner\Extension\Extension
 //        );
 
         $reporter  = new Reporter\DefaultReporter();
-        $stopwatch = new Stopwatch();
+        $stopwatch = new TimingCollector();
+        Stopwatch::init($stopwatch);
 
         $facade->registerSubscribers(
             new TestStart($stopwatch),

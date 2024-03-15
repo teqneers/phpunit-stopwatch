@@ -5,12 +5,12 @@ namespace TQ\Testing\Extension\Stopwatch\Subscriber;
 use PHPUnit\Event\Test\AfterLastTestMethodFinished;
 use PHPUnit\Event\Test\AfterLastTestMethodFinishedSubscriber;
 use TQ\Testing\Extension\Stopwatch\Reporter\Reporter;
-use TQ\Testing\Extension\Stopwatch\Stopwatch;
+use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
 class ReportTestClassTearDown implements AfterLastTestMethodFinishedSubscriber
 {
     public function __construct(
-        private readonly Stopwatch $stopwatch,
+        private readonly TimingCollector $stopwatch,
         readonly Reporter $reporter
     ) {
     }
