@@ -28,7 +28,9 @@
   },
   "require": {
     "php": ">=8.1.0",
-    "phpunit/phpunit": "^10.0.0 || ^11.0.0"
+    "phpunit/phpunit": "^10.0.0 || ^11.0.0",
+    "psr/clock": "^1.0.0",
+    "symfony/clock": "^6.4.0 || ^7.0.0"
   },
   "require-dev": {
     "ergebnis/php-cs-fixer-config": "^6.23.0",
@@ -54,6 +56,9 @@
       "abandoned": "report"
     },
     "preferred-install": "dist",
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
   }
 }
