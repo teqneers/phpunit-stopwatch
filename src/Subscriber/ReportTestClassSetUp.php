@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TQ\Testing\Extension\Stopwatch\Subscriber;
 
 use PHPUnit\Event\Test\BeforeFirstTestMethodFinished;
@@ -19,8 +21,8 @@ class ReportTestClassSetUp implements BeforeFirstTestMethodFinishedSubscriber
     {
         echo $this->reporter->report(
             "Stopwatch for {$event->testClassName()} SetUp",
-            $this->stopwatch->getStopWatchTotal(),
-            $this->stopwatch->getStopWatch()
+            $this->stopwatch->getTotalTiming(),
+            $this->stopwatch->getTiming()
         );
     }
 }

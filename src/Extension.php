@@ -1,9 +1,6 @@
 <?php
-/**
- * Stopwatch
- *
- * @copyright Copyright (C) 2003-2024 TEQneers GmbH & Co. KG. All rights reserved.
- */
+
+declare(strict_types=1);
 
 namespace TQ\Testing\Extension\Stopwatch;
 

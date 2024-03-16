@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TQ\Testing\Extension\Stopwatch;
 
 final class Stopwatch
@@ -18,7 +20,8 @@ final class Stopwatch
 
     public static function start(string $name): void
     {
-        if (!self::$collector) {
+        // ignore if already started
+        if (!self::$collector || self::$collector->isStarted($name)) {
             return;
         }
         self::$collector->start($name);

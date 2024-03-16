@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TQ\Testing\Extension\Stopwatch\Subscriber;
 
 use PHPUnit\Event\Application\FinishedSubscriber;
@@ -16,6 +18,6 @@ class TotalReport implements FinishedSubscriber
 
     public function notify($event): void
     {
-        echo $this->reporter->report("Stopwatch TOTALS", $this->stopwatch->getStopWatchTotal());
+        echo $this->reporter->report("Stopwatch TOTALS", $this->stopwatch->getTotalTiming());
     }
 }
