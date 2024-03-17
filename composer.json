@@ -62,5 +62,8 @@
     },
     "preferred-install": "dist",
     "sort-packages": true
+  },
+  "scripts": {
+    "test": "phpunit --display-warnings --display-notices"
   }
 }
