@@ -1,6 +1,6 @@
 {
   "name": "teqneers/phpunit-stopwatch",
-  "description": "Extension to measure and analyse any part of your code in order to detect performance issues in phpunit/phpunit.",
+  "description": "Extension to measure and analyse any part of your code in order to detect performance issues using phpunit/phpunit.",
   "license": "MIT",
   "type": "library",
   "keywords": [
