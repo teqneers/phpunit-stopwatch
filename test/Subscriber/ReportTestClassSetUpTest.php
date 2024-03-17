@@ -45,7 +45,7 @@ class ReportTestClassSetUpTest extends TestCase
 
     public function testStartStop(): void
     {
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::start($name);
         $this->clock->sleep(10);
         Stopwatch::stop($name);
@@ -60,8 +60,8 @@ class ReportTestClassSetUpTest extends TestCase
 
     public function testMultipleStartStop(): void
     {
-        $name      = self::faker()->word;
-        $innerName = self::faker()->word;
+        $name      = self::faker()->word();
+        $innerName = self::faker()->word();
 
         Stopwatch::start($name);
         $this->clock->sleep(10);

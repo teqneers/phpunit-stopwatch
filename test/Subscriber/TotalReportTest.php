@@ -45,7 +45,7 @@ class TotalReportTest extends TestCase
 
     public function testStartStop(): void
     {
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::start($name);
         $this->clock->sleep(10);
         Stopwatch::stop($name);
@@ -60,8 +60,8 @@ class TotalReportTest extends TestCase
 
     public function testMultipleStartStop(): void
     {
-        $name      = self::faker()->word;
-        $innerName = self::faker()->word;
+        $name      = self::faker()->word();
+        $innerName = self::faker()->word();
 
         Stopwatch::start($name);
         $this->clock->sleep(10);
@@ -83,8 +83,8 @@ class TotalReportTest extends TestCase
 
     public function testMultipleStartStopWithReset(): void
     {
-        $name      = self::faker()->word;
-        $innerName = self::faker()->word;
+        $name      = self::faker()->word();
+        $innerName = self::faker()->word();
 
         Stopwatch::start($name);
         $this->clock->sleep(10);
@@ -117,8 +117,8 @@ class TotalReportTest extends TestCase
         Stopwatch::stop($name);
 
         // simulate another test run with different stopwatch points
-        $name2      = self::faker()->word;
-        $innerName2 = self::faker()->word;
+        $name2      = self::faker()->word();
+        $innerName2 = self::faker()->word();
 
         Stopwatch::start($name2);
         $this->clock->sleep(30);

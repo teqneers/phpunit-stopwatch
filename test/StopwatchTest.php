@@ -29,7 +29,7 @@ class StopwatchTest extends TestCase
 
     public function testStart(): void
     {
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
@@ -45,7 +45,7 @@ class StopwatchTest extends TestCase
 
     public function testUnstoppedRestart(): void
     {
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
@@ -71,7 +71,7 @@ class StopwatchTest extends TestCase
 
     public function testStopAndDuration(): void
     {
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
@@ -100,7 +100,7 @@ class StopwatchTest extends TestCase
      */
     public function testTimes(): void
     {
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
@@ -132,7 +132,7 @@ class StopwatchTest extends TestCase
      */
     public function testReset(): void
     {
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
@@ -175,7 +175,7 @@ class StopwatchTest extends TestCase
     {
         $this->expectException(StopwatchException::class);
 
-        $name = self::faker()->word;
+        $name = self::faker()->word();
         Stopwatch::stop($name);
     }
 
@@ -183,7 +183,7 @@ class StopwatchTest extends TestCase
     {
         $this->expectException(StopwatchException::class);
 
-        $name   = self::faker()->word;
+        $name   = self::faker()->word();
         $this->collector->getTiming($name);
     }
 
@@ -191,7 +191,7 @@ class StopwatchTest extends TestCase
     {
         $this->expectException(StopwatchException::class);
 
-        $name   = self::faker()->word;
+        $name   = self::faker()->word();
         $this->collector->getTotalTiming($name);
     }
 
