@@ -1,8 +1,8 @@
 /.build/
 /.note/
 /.phive/
-/vendor/
 !/.phive/phars.xml
+/vendor/
 /.idea/
 /phpunit.xml
 /.phpunit.result.cache
