@@ -8,6 +8,9 @@ final class Stopwatch
 {
     protected static ?TimingCollector $collector = null;
 
+    /**
+     * @psalm-suppress UnusedConstructor
+     */
     private function __construct()
     {
         // static class

@@ -33,7 +33,6 @@ class StopwatchTest extends TestCase
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertNull($timing['end']);
         self::assertNull($timing['duration']);
@@ -50,7 +49,6 @@ class StopwatchTest extends TestCase
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertNull($timing['end']);
         self::assertNull($timing['duration']);
@@ -61,7 +59,6 @@ class StopwatchTest extends TestCase
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertNull($timing['end']);
         self::assertNull($timing['duration']);
@@ -78,7 +75,6 @@ class StopwatchTest extends TestCase
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertNull($timing['end']);
         self::assertNull($timing['duration']);
@@ -89,7 +85,6 @@ class StopwatchTest extends TestCase
         Stopwatch::stop($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertEquals(1704067210.0, $timing['end']);
         self::assertEquals(10, $timing['duration']);
@@ -109,7 +104,6 @@ class StopwatchTest extends TestCase
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertNull($timing['end']);
         self::assertNull($timing['duration']);
@@ -123,7 +117,6 @@ class StopwatchTest extends TestCase
         Stopwatch::stop($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertEquals(1704067200.0, $timing['end']);
         self::assertEquals(0.0, $timing['duration']);
@@ -143,7 +136,6 @@ class StopwatchTest extends TestCase
         Stopwatch::start($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertNull($timing['end']);
         self::assertNull($timing['duration']);
@@ -166,7 +158,6 @@ class StopwatchTest extends TestCase
         Stopwatch::stop($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067240.0, $timing['start']);
         self::assertEquals(1704067250.0, $timing['end']);
         self::assertEquals(10.0, $timing['duration']);
@@ -174,7 +165,6 @@ class StopwatchTest extends TestCase
 
         // total should be accumulated and not reset
         $totalTiming = $this->collector->getTotalTiming($name);
-        self::assertIsArray($totalTiming);
         self::assertEquals(1704067200.0, $totalTiming['start']);
         self::assertEquals(1704067250.0, $totalTiming['end']);
         self::assertEquals(30.0, $totalTiming['duration']);

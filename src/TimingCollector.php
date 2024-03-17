@@ -49,7 +49,9 @@ class TimingCollector
                 ];
             }
         } else {
+            /** @psalm-suppress MixedArrayAssignment */
             $this->timing[$name]['start']      = $time;
+            /** @psalm-suppress MixedArrayAssignment */
             $this->totalTiming[$name]['start'] = $time;
         }
     }
@@ -63,14 +65,21 @@ class TimingCollector
             }
             throw new StopwatchException("Stopwatch $name not started");
         }
+        /** @psalm-suppress MixedArrayAccess, MixedAssignment, MixedOperand */
         $duration = $time - $this->timing[$name]['start'];
 
-        $this->timing[$name]['end']      = $time;
+        /** @psalm-suppress MixedArrayAssignment */
+        $this->timing[$name]['end'] = $time;
+        /** @psalm-suppress MixedArrayAccess, MixedArrayAssignment, MixedOperand */
         $this->timing[$name]['duration'] += $duration;
+        /** @psalm-suppress MixedArrayAccess, MixedArrayAssignment, MixedOperand */
         ++$this->timing[$name]['times'];
 
+        /** @psalm-suppress MixedArrayAssignment */
         $this->totalTiming[$name]['end']      = $time;
+        /** @psalm-suppress MixedArrayAccess, MixedArrayAssignment, MixedOperand */
         $this->totalTiming[$name]['duration'] += $duration;
+        /** @psalm-suppress MixedArrayAccess, MixedArrayAssignment, MixedOperand */
         ++$this->totalTiming[$name]['times'];
     }
 
@@ -79,6 +88,9 @@ class TimingCollector
         return isset($this->timing[$name]);
     }
 
+    /**
+     * @psalm-suppress MixedInferredReturnType
+     */
     public function getTiming(string $name = null): array
     {
         if ($name !== null) {
@@ -86,12 +98,16 @@ class TimingCollector
                 throw new StopwatchException("Stopwatch $name not started");
             }
 
+            /** @psalm-suppress MixedReturnStatement */
             return $this->timing[$name];
         }
 
         return $this->timing;
     }
 
+    /**
+     * @psalm-suppress MixedInferredReturnType
+     */
     public function getTotalTiming(string $name = null): array
     {
         if ($name !== null) {
@@ -99,6 +115,7 @@ class TimingCollector
                 throw new StopwatchException("Stopwatch $name not started");
             }
 
+            /** @psalm-suppress MixedReturnStatement */
             return $this->totalTiming[$name];
         }
 

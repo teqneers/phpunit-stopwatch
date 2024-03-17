@@ -18,9 +18,11 @@ class DefaultReporter implements Reporter
         if ($current !== null) {
             if (!empty($current)) {
                 $output .= "\n\n{$headline}:\n";
-                /** @var Failure $failure */
+                /** @var array $stopWatch */
                 foreach ($current as $name => $stopWatch) {
+                    /** @var array $total */
                     $total = $totals[$name];
+                    /** @psalm-suppress MixedArgumentTypeCoercion */
                     $printName = strlen($name) > 50 ? '...' . substr($name, -46) : $name;
                     $output .= sprintf(
                         "- %-{$nameWidth}s %-s TOTAL %-s\n",
@@ -37,8 +39,9 @@ class DefaultReporter implements Reporter
         $nameWidth += 34;
         if (!empty($totals)) {
             $output .= "\n\nStopwatch TOTALS:\n";
-            /** @var Failure $failure */
+            /** @var array $total */
             foreach ($totals as $name => $total) {
+                /** @psalm-suppress MixedArgumentTypeCoercion */
                 $printName = strlen($name) > 50 ? '...' . substr($name, -46) : $name;
                 $output .= sprintf(
                     "- %-{$nameWidth}s TOTAL %-s\n",
@@ -53,6 +56,7 @@ class DefaultReporter implements Reporter
 
     protected function measureString(array $dataPoint): string
     {
+        /** @psalm-suppress MixedOperand, MixedArgument */
         return sprintf(
             "%10.3fsecs (%5dx, Ø %6.2f)",
             $dataPoint['duration'],

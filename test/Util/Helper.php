@@ -71,6 +71,7 @@ trait Helper
         array $metadata = [],
         array $testData = []
     ): TestMethod {
+        /** @psalm-suppress ArgumentTypeCoercion */
         return new TestMethod(
             $className,
             $methodName,
@@ -86,12 +87,16 @@ trait Helper
         string $className = 'ClassName',
         string $methodName = 'MethodName',
     ): ClassMethod {
+        /** @psalm-suppress ArgumentTypeCoercion */
         return new ClassMethod(
             $className,
-            $methodName,
+            $methodName
         );
     }
 
+    /**
+     * @psalm-param list<Test> $tests
+     */
     final protected static function fakeTestSuite(
         string $name = 'TestSuite',
         int $size = 1,
@@ -99,6 +104,7 @@ trait Helper
         string $file = 'TestFile',
         int $line = 1
     ): TestSuite {
+        /** @psalm-suppress ArgumentTypeCoercion */
         return new TestSuiteForTestClass(
             $name,
             $size,
@@ -121,7 +127,7 @@ trait Helper
         ?bool $protected = false,
         ?bool $full = true,
         ?int $bufferSize = 0
-    ) {
+    ): \PHPUnit\Event\Telemetry\GarbageCollectorStatus {
         return new GarbageCollectorStatus(
             $runs,
             $collected,
@@ -183,24 +189,26 @@ trait Helper
     final protected static function fakeEventTestBeforeFirstTestMethodFinished(
         Info $info = null,
         string $testClassName = 'TestClassNameBefore',
-        ClassMethod $calledMethods = new ClassMethod('ClassName', 'MethodName')
+        ClassMethod $calledMethods = null,
     ): BeforeFirstTestMethodFinished {
+        /** @psalm-var class-string $testClassName */
         return new BeforeFirstTestMethodFinished(
             $info ?? self::fakeTelemetryInfo(),
             $testClassName,
-            $calledMethods
+            $calledMethods ?? self::fakeClassMethod()
         );
     }
 
     final protected static function fakeEventAfterLastTestMethodFinished(
         Info $info = null,
         string $testClassName = 'TestClassNameAfter',
-        ClassMethod $calledMethods = new ClassMethod('ClassName', 'MethodName')
+        ClassMethod $calledMethods = null,
     ): AfterLastTestMethodFinished {
+        /** @psalm-var class-string $testClassName */
         return new AfterLastTestMethodFinished(
             $info ?? self::fakeTelemetryInfo(),
             $testClassName,
-            $calledMethods
+            $calledMethods ?? self::fakeClassMethod()
         );
     }
 
@@ -239,6 +247,7 @@ trait Helper
         string $testClassName = 'TestClassNameBeforeFirst',
         ClassMethod $calledMethod = null
     ): BeforeFirstTestMethodCalled {
+        /** @psalm-var class-string $testClassName */
         return new BeforeFirstTestMethodCalled(
             $info ?? self::fakeTelemetryInfo(),
             $testClassName,

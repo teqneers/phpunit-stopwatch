@@ -14,7 +14,7 @@ class ResetForTestClassTearDown implements FinishedSubscriber
     ) {
     }
 
-    public function notify($event): void
+    public function notify(\PHPUnit\Event\TestSuite\Finished $event): void
     {
         $this->stopwatch->reset();
     }

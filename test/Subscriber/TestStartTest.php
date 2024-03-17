@@ -19,14 +19,12 @@ class TestStartTest extends TestCase
 
     private MockClock       $clock;
     private TimingCollector $collector;
-    private DefaultReporter $reporter;
 
     public function setUp(): void
     {
         $this->clock = new MockClock();
         $this->clock->modify('2024-01-01 00:00:00');
 
-        $this->reporter  = new DefaultReporter();
         $this->collector = new TimingCollector($this->clock);
         Stopwatch::init($this->collector);
     }
@@ -41,7 +39,6 @@ class TestStartTest extends TestCase
         Stopwatch::stop($name);
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertEquals(1704067210.0, $timing['end']);
         self::assertEquals(10, $timing['duration']);

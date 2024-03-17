@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TQ\Testing\Extension\Stopwatch\Subscriber;
 
+use PHPUnit\Event\Test\BeforeFirstTestMethodCalled;
 use PHPUnit\Event\Test\BeforeFirstTestMethodCalledSubscriber;
 use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
@@ -14,7 +15,7 @@ class ResetForTestClassSetUp implements BeforeFirstTestMethodCalledSubscriber
     ) {
     }
 
-    public function notify($event): void
+    public function notify(BeforeFirstTestMethodCalled $event): void
     {
         $this->stopwatch->reset();
     }

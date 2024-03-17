@@ -16,6 +16,9 @@ use TQ\Testing\Extension\Stopwatch\Subscriber\TestStart;
 use TQ\Testing\Extension\Stopwatch\Subscriber\TestStop;
 use TQ\Testing\Extension\Stopwatch\Subscriber\TotalReport;
 
+/**
+ * @psalm-api
+ */
 class Extension implements Runner\Extension\Extension
 {
     public function bootstrap(

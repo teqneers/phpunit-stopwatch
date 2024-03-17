@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Clock\MockClock;
 use TQ\Testing\Extension\Stopwatch\Reporter\DefaultReporter;
 use TQ\Testing\Extension\Stopwatch\Stopwatch;
-use TQ\Testing\Extension\Stopwatch\Subscriber\TestStart;
 use TQ\Testing\Extension\Stopwatch\Subscriber\TestStop;
 use TQ\Testing\Extension\Stopwatch\Test\Util\Helper;
 use TQ\Testing\Extension\Stopwatch\TimingCollector;
@@ -19,14 +18,12 @@ class TestStopTest extends TestCase
 
     private MockClock       $clock;
     private TimingCollector $collector;
-    private DefaultReporter $reporter;
 
     public function setUp(): void
     {
         $this->clock = new MockClock();
         $this->clock->modify('2024-01-01 00:00:00');
 
-        $this->reporter  = new DefaultReporter();
         $this->collector = new TimingCollector($this->clock);
         Stopwatch::init($this->collector);
     }
@@ -41,7 +38,6 @@ class TestStopTest extends TestCase
         $reportTest->notify(self::fakeEventTestFinished());
 
         $timing = $this->collector->getTiming($name);
-        self::assertIsArray($timing);
         self::assertEquals(1704067200.0, $timing['start']);
         self::assertEquals(1704067210.0, $timing['end']);
         self::assertEquals(10, $timing['duration']);
