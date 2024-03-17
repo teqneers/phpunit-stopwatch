@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phar xmlns="https://phar.io/xml/manifest/1.0">
+    <contains name="teqneers/phpunit-stopwatch" version="0.1.0" type="extension">
+        <extension for="phpunit/phpunit" compatible="^10.0 || ^11.0"/>
+    </contains>
+
+    <copyright>
+        <author name="Oliver G. Mueller" email="oliver@teqneers.de"/>
+        <license type="MIT" url="https://github.com/teqneers/phpunit-stopwatch/blob/main/LICENSE.md"/>
+    </copyright>
+
+    <requires>
+        <php version="^8.1"/>
+    </requires>
+</phar>
