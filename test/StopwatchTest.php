@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/teqneers/phpunit-stopwatch
+ */
+
 namespace TQ\Testing\Extension\Stopwatch\Test;
 
 use PHPUnit\Framework\TestCase;
@@ -11,14 +20,13 @@ use TQ\Testing\Extension\Stopwatch\Stopwatch;
 use TQ\Testing\Extension\Stopwatch\Test\Util\Helper;
 use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
-class StopwatchTest extends TestCase
+final class StopwatchTest extends TestCase
 {
     use Helper;
-
-    private MockClock       $clock;
+    private MockClock $clock;
     private TimingCollector $collector;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->clock = new MockClock();
         $this->clock->modify('2024-01-01 00:00:00');
@@ -96,7 +104,7 @@ class StopwatchTest extends TestCase
     }
 
     /**
-     * Test if multiple start/stop cycles are counted correctly
+     * Test if multiple start/stop cycles are counted correctly.
      */
     public function testTimes(): void
     {
@@ -128,7 +136,7 @@ class StopwatchTest extends TestCase
     }
 
     /**
-     * A reset should only reset the current timing, not the total timing
+     * A reset should only reset the current timing, not the total timing.
      */
     public function testReset(): void
     {
@@ -183,7 +191,7 @@ class StopwatchTest extends TestCase
     {
         $this->expectException(StopwatchException::class);
 
-        $name   = self::faker()->word();
+        $name = self::faker()->word();
         $this->collector->getTiming($name);
     }
 
@@ -191,7 +199,7 @@ class StopwatchTest extends TestCase
     {
         $this->expectException(StopwatchException::class);
 
-        $name   = self::faker()->word();
+        $name = self::faker()->word();
         $this->collector->getTotalTiming($name);
     }
 

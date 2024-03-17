@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/teqneers/phpunit-stopwatch
+ */
+
 namespace TQ\Testing\Extension\Stopwatch\Test\Subscriber;
 
 use PHPUnit\Event\Test\Finished;
@@ -13,15 +22,14 @@ use TQ\Testing\Extension\Stopwatch\Subscriber\ReportTest;
 use TQ\Testing\Extension\Stopwatch\Test\Util\Helper;
 use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
-class ReportTestTest extends TestCase
+final class ReportTestTest extends TestCase
 {
     use Helper;
-
-    private MockClock       $clock;
+    private MockClock $clock;
     private TimingCollector $collector;
     private DefaultReporter $reporter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->clock = new MockClock();
         $this->clock->modify('2024-01-01 00:00:00');
@@ -53,7 +61,7 @@ class ReportTestTest extends TestCase
         $output = $this->notifyOutput(self::fakeEventTestFinished());
 
         self::assertStringContainsString('Stopwatch for ClassName::MethodName:', $output);
-        self::assertStringContainsString('- '.$name, $output);
+        self::assertStringContainsString('- ' . $name, $output);
         self::assertStringContainsString(' 10.000secs', $output);
         self::assertStringContainsString(' 1x', $output);
     }
@@ -75,18 +83,18 @@ class ReportTestTest extends TestCase
         $output = $this->notifyOutput(self::fakeEventTestFinished());
 
         self::assertStringContainsString('Stopwatch for ClassName::MethodName:', $output);
-        self::assertMatchesRegularExpression('(- '.$name.'\s+20\.000secs)', $output);
+        self::assertMatchesRegularExpression('(- ' . $name . '\s+20\.000secs)', $output);
         self::assertStringContainsString(' 1x', $output);
 
-        self::assertMatchesRegularExpression('(- '.$innerName.'\s+10\.000secs)', $output);
+        self::assertMatchesRegularExpression('(- ' . $innerName . '\s+10\.000secs)', $output);
     }
 
     protected function notifyOutput(Finished $event): string
     {
-        ob_start();
+        \ob_start();
         $reportTest = new ReportTest($this->collector, $this->reporter);
         $reportTest->notify($event);
 
-        return ob_get_clean();
+        return \ob_get_clean();
     }
 }

@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/teqneers/phpunit-stopwatch
+ */
+
 namespace TQ\Testing\Extension\Stopwatch\Test\Util;
 
 use Faker\Factory;
@@ -53,12 +62,12 @@ trait Helper
     final protected static function fakeTestDox(
         string $prettifiedClassName = 'PrettyClassName',
         string $prettifiedMethodName = 'PrettyMethodName',
-        string $prettifiedAndColorizedMethodName = 'PrettyAndColorizedMethodName'
+        string $prettifiedAndColorizedMethodName = 'PrettyAndColorizedMethodName',
     ): TestDox {
         return new TestDox(
             $prettifiedClassName,
             $prettifiedMethodName,
-            $prettifiedAndColorizedMethodName
+            $prettifiedAndColorizedMethodName,
         );
     }
 
@@ -67,11 +76,10 @@ trait Helper
         string $methodName = 'MethodName',
         string $file = 'File',
         int $line = 1,
-        TestDox $testDox = null,
+        ?TestDox $testDox = null,
         array $metadata = [],
-        array $testData = []
+        array $testData = [],
     ): TestMethod {
-        /** @psalm-suppress ArgumentTypeCoercion */
         return new TestMethod(
             $className,
             $methodName,
@@ -79,7 +87,7 @@ trait Helper
             $line,
             $testDox ?? self::fakeTestDox(),
             MetadataCollection::fromArray($metadata),
-            TestDataCollection::fromArray($testData)
+            TestDataCollection::fromArray($testData),
         );
     }
 
@@ -87,10 +95,9 @@ trait Helper
         string $className = 'ClassName',
         string $methodName = 'MethodName',
     ): ClassMethod {
-        /** @psalm-suppress ArgumentTypeCoercion */
         return new ClassMethod(
             $className,
-            $methodName
+            $methodName,
         );
     }
 
@@ -102,15 +109,14 @@ trait Helper
         int $size = 1,
         array $tests = [],
         string $file = 'TestFile',
-        int $line = 1
+        int $line = 1,
     ): TestSuite {
-        /** @psalm-suppress ArgumentTypeCoercion */
         return new TestSuiteForTestClass(
             $name,
             $size,
             TestCollection::fromArray($tests),
             $file,
-            $line
+            $line,
         );
     }
 
@@ -126,7 +132,7 @@ trait Helper
         ?bool $running = false,
         ?bool $protected = false,
         ?bool $full = true,
-        ?int $bufferSize = 0
+        ?int $bufferSize = 0,
     ): \PHPUnit\Event\Telemetry\GarbageCollectorStatus {
         return new GarbageCollectorStatus(
             $runs,
@@ -140,128 +146,128 @@ trait Helper
             $running,
             $protected,
             $full,
-            $bufferSize
+            $bufferSize,
         );
     }
 
     final protected static function fakeTelemetrySnapshot(
-        HRTime $time = null,
-        MemoryUsage $memoryUsage = null,
-        MemoryUsage $peakMemoryUsage = null,
-        GarbageCollectorStatus $garbageCollectorStatus = null
+        ?HRTime $time = null,
+        ?MemoryUsage $memoryUsage = null,
+        ?MemoryUsage $peakMemoryUsage = null,
+        ?GarbageCollectorStatus $garbageCollectorStatus = null,
     ): Snapshot {
         return new Snapshot(
-            $time ?? HRTime::fromSecondsAndNanoseconds(0, 0),
-            $memoryUsage ?? MemoryUsage::fromBytes(0),
-            $peakMemoryUsage ?? MemoryUsage::fromBytes(0),
+            $time                   ?? HRTime::fromSecondsAndNanoseconds(0, 0),
+            $memoryUsage            ?? MemoryUsage::fromBytes(0),
+            $peakMemoryUsage        ?? MemoryUsage::fromBytes(0),
             $garbageCollectorStatus ?? self::fakeGarbageCollectorStatus(),
         );
     }
 
     final protected static function fakeTelemetryInfo(
-        Snapshot $snapshot = null,
-        Duration $duration = null,
-        MemoryUsage $memoryUsage = null,
-        Duration $time = null,
-        MemoryUsage $peakMemoryUsage = null
+        ?Snapshot $snapshot = null,
+        ?Duration $duration = null,
+        ?MemoryUsage $memoryUsage = null,
+        ?Duration $time = null,
+        ?MemoryUsage $peakMemoryUsage = null,
     ): Info {
         return new Info(
-            $snapshot ?? self::fakeTelemetrySnapshot(),
-            $duration ?? Duration::fromSecondsAndNanoseconds(0, 0),
-            $memoryUsage ?? MemoryUsage::fromBytes(0),
-            $time ?? Duration::fromSecondsAndNanoseconds(0, 0),
-            $peakMemoryUsage ?? MemoryUsage::fromBytes(0)
+            $snapshot        ?? self::fakeTelemetrySnapshot(),
+            $duration        ?? Duration::fromSecondsAndNanoseconds(0, 0),
+            $memoryUsage     ?? MemoryUsage::fromBytes(0),
+            $time            ?? Duration::fromSecondsAndNanoseconds(0, 0),
+            $peakMemoryUsage ?? MemoryUsage::fromBytes(0),
         );
     }
 
     final protected static function fakeEventTestFinished(
-        Info $info = null,
-        TestMethod $testMethod = null,
-        int $result = 1
+        ?Info $info = null,
+        ?TestMethod $testMethod = null,
+        int $result = 1,
     ): Finished {
         return new Finished(
-            $info ?? self::fakeTelemetryInfo(),
+            $info       ?? self::fakeTelemetryInfo(),
             $testMethod ?? self::fakeTestMethod(),
-            $result
+            $result,
         );
     }
 
     final protected static function fakeEventTestBeforeFirstTestMethodFinished(
-        Info $info = null,
+        ?Info $info = null,
         string $testClassName = 'TestClassNameBefore',
-        ClassMethod $calledMethods = null,
+        ?ClassMethod $calledMethods = null,
     ): BeforeFirstTestMethodFinished {
         /** @psalm-var class-string $testClassName */
         return new BeforeFirstTestMethodFinished(
             $info ?? self::fakeTelemetryInfo(),
             $testClassName,
-            $calledMethods ?? self::fakeClassMethod()
+            $calledMethods ?? self::fakeClassMethod(),
         );
     }
 
     final protected static function fakeEventAfterLastTestMethodFinished(
-        Info $info = null,
+        ?Info $info = null,
         string $testClassName = 'TestClassNameAfter',
-        ClassMethod $calledMethods = null,
+        ?ClassMethod $calledMethods = null,
     ): AfterLastTestMethodFinished {
         /** @psalm-var class-string $testClassName */
         return new AfterLastTestMethodFinished(
             $info ?? self::fakeTelemetryInfo(),
             $testClassName,
-            $calledMethods ?? self::fakeClassMethod()
+            $calledMethods ?? self::fakeClassMethod(),
         );
     }
 
     final protected static function fakeEventApplicationFinished(
-        Info $info = null,
-        int $shellExitCode = 0
+        ?Info $info = null,
+        int $shellExitCode = 0,
     ): ApplicationFinished {
         return new ApplicationFinished(
             $info ?? self::fakeTelemetryInfo(),
-            $shellExitCode
+            $shellExitCode,
         );
     }
 
     final protected static function fakeEventPreparationStarted(
-        Info $info = null,
-        Test $test = null
+        ?Info $info = null,
+        ?Test $test = null,
     ): PreparationStarted {
         return new PreparationStarted(
             $info ?? self::fakeTelemetryInfo(),
-            $test ?? self::fakeTestMethod()
+            $test ?? self::fakeTestMethod(),
         );
     }
 
     final protected static function fakeEventPrepared(
-        Info $info = null,
-        Test $test = null
+        ?Info $info = null,
+        ?Test $test = null,
     ): Prepared {
         return new Prepared(
             $info ?? self::fakeTelemetryInfo(),
-            $test ?? self::fakeTestMethod()
+            $test ?? self::fakeTestMethod(),
         );
     }
 
     final protected static function fakeEventBeforeFirstTestMethodCalled(
-        Info $info = null,
+        ?Info $info = null,
         string $testClassName = 'TestClassNameBeforeFirst',
-        ClassMethod $calledMethod = null
+        ?ClassMethod $calledMethod = null,
     ): BeforeFirstTestMethodCalled {
         /** @psalm-var class-string $testClassName */
         return new BeforeFirstTestMethodCalled(
             $info ?? self::fakeTelemetryInfo(),
             $testClassName,
-            $calledMethod ?? self::fakeClassMethod()
+            $calledMethod ?? self::fakeClassMethod(),
         );
     }
 
     final protected static function fakeEventTestSuiteFinished(
-        Info $info = null,
-        TestSuite $testSuite = null
+        ?Info $info = null,
+        ?TestSuite $testSuite = null,
     ): TestSuiteFinished {
         return new TestSuiteFinished(
-            $info ?? self::fakeTelemetryInfo(),
-            $testSuite ?? self::fakeTestSuite()
+            $info      ?? self::fakeTelemetryInfo(),
+            $testSuite ?? self::fakeTestSuite(),
         );
     }
 }

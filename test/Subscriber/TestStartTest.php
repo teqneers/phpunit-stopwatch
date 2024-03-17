@@ -2,25 +2,31 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/teqneers/phpunit-stopwatch
+ */
+
 namespace TQ\Testing\Extension\Stopwatch\Test\Subscriber;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Clock\MockClock;
-use TQ\Testing\Extension\Stopwatch\Reporter\DefaultReporter;
 use TQ\Testing\Extension\Stopwatch\Stopwatch;
-use TQ\Testing\Extension\Stopwatch\Subscriber\ResetForTest;
 use TQ\Testing\Extension\Stopwatch\Subscriber\TestStart;
 use TQ\Testing\Extension\Stopwatch\Test\Util\Helper;
 use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
-class TestStartTest extends TestCase
+final class TestStartTest extends TestCase
 {
     use Helper;
-
-    private MockClock       $clock;
+    private MockClock $clock;
     private TimingCollector $collector;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->clock = new MockClock();
         $this->clock->modify('2024-01-01 00:00:00');
@@ -31,7 +37,7 @@ class TestStartTest extends TestCase
 
     public function testStarted(): void
     {
-        $name = 'Test';
+        $name       = 'Test';
         $reportTest = new TestStart($this->collector);
         $reportTest->notify(self::fakeEventPrepared());
 

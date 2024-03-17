@@ -2,16 +2,25 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/teqneers/phpunit-stopwatch
+ */
+
 namespace TQ\Testing\Extension\Stopwatch\Subscriber;
 
 use PHPUnit\Event\Test\BeforeFirstTestMethodCalled;
 use PHPUnit\Event\Test\BeforeFirstTestMethodCalledSubscriber;
 use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
-class ResetForTestClassSetUp implements BeforeFirstTestMethodCalledSubscriber
+final class ResetForTestClassSetUp implements BeforeFirstTestMethodCalledSubscriber
 {
     public function __construct(
-        private readonly TimingCollector $stopwatch
+        private readonly TimingCollector $stopwatch,
     ) {
     }
 

@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/teqneers/phpunit-stopwatch
+ */
+
 namespace TQ\Testing\Extension\Stopwatch\Test\Subscriber;
 
 use PHPUnit\Event\Test\BeforeFirstTestMethodFinished;
@@ -13,15 +22,14 @@ use TQ\Testing\Extension\Stopwatch\Subscriber\ReportTestClassSetUp;
 use TQ\Testing\Extension\Stopwatch\Test\Util\Helper;
 use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
-class ReportTestClassSetUpTest extends TestCase
+final class ReportTestClassSetUpTest extends TestCase
 {
     use Helper;
-
-    private MockClock       $clock;
+    private MockClock $clock;
     private TimingCollector $collector;
     private DefaultReporter $reporter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->clock = new MockClock();
         $this->clock->modify('2024-01-01 00:00:00');
@@ -83,10 +91,10 @@ class ReportTestClassSetUpTest extends TestCase
 
     protected function notifyOutput(BeforeFirstTestMethodFinished $event): string
     {
-        ob_start();
+        \ob_start();
         $reportTest = new ReportTestClassSetUp($this->collector, $this->reporter);
         $reportTest->notify($event);
 
-        return ob_get_clean();
+        return \ob_get_clean();
     }
 }
