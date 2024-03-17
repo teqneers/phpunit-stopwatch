@@ -22,8 +22,5 @@
         <include>
             <directory suffix=".php">src/</directory>
         </include>
-        <exclude>
-            <directory suffix=".php">src/Subscriber/</directory>
-        </exclude>
     </source>
 </phpunit>
