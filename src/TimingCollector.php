@@ -59,7 +59,7 @@ final class TimingCollector
                 ];
             }
         } else {
-            $this->timing[$name]['start'] = $time;
+            $this->timing[$name]['start']      = $time;
             $this->totalTiming[$name]['start'] = $time;
         }
     }
@@ -76,7 +76,7 @@ final class TimingCollector
             throw new StopwatchException("Stopwatch {$name} not started");
         }
 
-        $duration = $time - $this->timing[$name]['start'];
+        $duration                   = $time - $this->timing[$name]['start'];
         $this->timing[$name]['end'] = $time;
         $this->timing[$name]['duration'] += $duration;
         ++$this->timing[$name]['times'];
