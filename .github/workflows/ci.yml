@@ -34,13 +34,13 @@ jobs:
         ]
         experimental: [
           # PHP 8.1
-          "false",
+          false,
           # PHP 8.2
-          "false",
+          false,
           # PHP 8.3
-          "false",
+          false,
           # PHP 8.4
-          "true",
+          true,
         ]
     name: "PHP ${{ matrix.php-version }} test"
     steps:
