@@ -25,10 +25,10 @@ tools:
   php_pdepend: true
   php_loc:
     enabled: true
-    excluded_dirs: ["tests"]
+    excluded_dirs: ["test"]
   php_cpd:
     enabled: true
-    excluded_dirs: ["tests"]
+    excluded_dirs: ["test"]
 
 #before_commands:
 #  - "composer install"
