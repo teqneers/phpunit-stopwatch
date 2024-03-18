@@ -1,7 +1,6 @@
 build:
   environment:
     php: 8.3.1
-    compile_options: '--without-pear'
   nodes:
     analysis:
       tests:
