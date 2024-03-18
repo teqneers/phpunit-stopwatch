@@ -21,11 +21,15 @@ jobs:
       max-parallel: 2
       fail-fast: false
       matrix:
-        php: [
-          [ version: "8.1", experimental: false ],
-          [ version: "8.2", experimental: false ],
-          [ version: "8.3", experimental: false ],
-          [ version: "8.4", experimental: true ]
+        php:
+          - version: "8.1"
+            experimental: false
+          - version: "8.2"
+            experimental: false
+          - version: "8.3"
+            experimental: false
+          - version: "8.4"
+            experimental: true
         ]
         composer-param: [
           "update --no-progress --prefer-dist --prefer-lowest",
@@ -34,7 +38,7 @@ jobs:
     name: "PHP ${{ matrix.php.version }} test"
     steps:
       - name: "Check if PHP ${{ matrix.php.version }} is supported"
-        if: "matrix.experimental == 'true'"
+        if: "matrix.experimental == true"
         run: "echo 'PHP ${{ matrix.php.version }} is experimental'"
       - name: "checkout project"
         uses: "actions/checkout@v4"
