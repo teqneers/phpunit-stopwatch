@@ -6,7 +6,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/?branch=main)
 [![Code Climate](https://codeclimate.com/github/teqneers/phpunit-stopwatch/badges/gpa.svg)](https://codeclimate.com/github/teqneers/phpunit-stopwatch)
 
-[![Code Coverage](https://codecov.io/gh/teqneers/phpunit-stopwatch/branch/main/graph/badge.svg)](https://codecov.io/gh/teqneers/phpunit-stopwatch)
+[![codecov](https://codecov.io/gh/teqneers/phpunit-stopwatch/graph/badge.svg?token=U1T7ZGW5XW)](https://codecov.io/gh/teqneers/phpunit-stopwatch)
 [![Type Coverage](https://shepherd.dev/github/teqneers/phpunit-stopwatch/coverage.svg)](https://shepherd.dev/github/teqneers/phpunit-stopwatch)
 
 This project provides a [`composer`](https://getcomposer.org) package and
