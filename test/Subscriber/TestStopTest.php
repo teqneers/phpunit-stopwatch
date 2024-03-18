@@ -55,5 +55,8 @@ final class TestStopTest extends TestCase
     {
         $reportTest = new TestStop($this->collector);
         $reportTest->notify(self::fakeEventTestFinished());
+
+        // the above code should NOT throw an exception
+        self::assertTrue(true);
     }
 }
