@@ -4,7 +4,7 @@ on:
     paths-ignore:
       - "README.md"
       - "LICENSE.md"
-      - ".scruitinizer.yml"
+      - ".scrutinizer.yml"
       - ".editorconfig"
     branches: ["main"]
   pull_request:
@@ -87,7 +87,13 @@ jobs:
         run: "vendor/bin/phpunit --coverage-clover=coverage.clover"
         continue-on-error: "${{ matrix.experimental }}"
 
-        # Uploading reports for analysis
+      - name: "Upload coverage reports to Codecov"
+        uses: "codecov/codecov-action@v4.0.1"
+        with:
+            token: "${{ secrets.CODECOV_TOKEN }}"
+            slug: "teqneers/phpunit-stopwatch"
+
+      # Uploading reports for analysis
       - name: "Upload code-coverage to scrutinizer"
         run: "vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover"
         continue-on-error: "${{ matrix.experimental }}"
