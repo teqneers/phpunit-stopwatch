@@ -31,16 +31,6 @@ jobs:
           "update --no-progress --prefer-dist --prefer-lowest",
           "update --no-progress --prefer-dist"
         ]
-        experimental: [
-          # PHP 8.1
-          false,
-          # PHP 8.2
-          false,
-          # PHP 8.3
-          false,
-          # PHP 8.4
-          true,
-        ]
     name: "PHP ${{ matrix.php.version }} test"
     steps:
       - name: "Check if PHP ${{ matrix.php.version }} is supported"

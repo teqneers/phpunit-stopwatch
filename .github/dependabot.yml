@@ -6,3 +6,5 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+
+# vim: syntax=yaml ts=2 sw=2 et sr softtabstop=2 autoindent
