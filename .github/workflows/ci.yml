@@ -34,7 +34,11 @@ jobs:
         include:
           # also try a future version
           - php-version: "8.4"
+            composer-param: [
+                "update --no-progress --prefer-dist --prefer-lowest",
+                "update --no-progress --prefer-dist"
             experimental: true
+        ]
     name: "PHP ${{ matrix.php-version }} test"
     steps:
       - name: "Check if PHP ${{ matrix.php-version }} is supported"
