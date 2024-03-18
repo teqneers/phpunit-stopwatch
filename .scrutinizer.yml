@@ -1,9 +1,14 @@
-#imports:
-#  - "php"
+build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
 
 filter:
   paths: ["src/*"]
   excluded_paths: ["test/*"]
+  dependency_paths: ["vendor/*"]
 
 tools:
   external_code_coverage:
