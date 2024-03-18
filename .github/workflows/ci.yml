@@ -4,6 +4,8 @@ on:
     paths-ignore:
       - "README.md"
       - "LICENSE.md"
+      - ".scruitinizer.yml"
+      - ".editorconfig"
     branches: ["main"]
   pull_request:
     paths-ignore:

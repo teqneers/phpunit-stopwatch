@@ -1,5 +1,5 @@
-imports:
-  - "php"
+#imports:
+#  - "php"
 
 filter:
   paths: ["src/*"]
@@ -23,7 +23,7 @@ tools:
     enabled: true
     excluded_dirs: ["tests"]
 
-before_commands:
-  - "composer install"
+#before_commands:
+#  - "composer install"
 
 # vim: syntax=yaml ts=2 sw=2 et sr softtabstop=2 autoindent
