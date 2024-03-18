@@ -32,8 +32,21 @@ jobs:
           "update --no-progress --prefer-dist --prefer-lowest",
           "update --no-progress --prefer-dist"
         ]
+        experimental: [
+          # PHP 8.1
+          "false",
+          # PHP 8.2
+          "false",
+          # PHP 8.3
+          "false",
+          # PHP 8.4
+          "true",
+        ]
     name: "PHP ${{ matrix.php-version }} test"
     steps:
+      - name: "Check if PHP ${{ matrix.php-version }} is supported"
+        if: "matrix.experimental == 'true'"
+        run: "echo 'PHP ${{ matrix.php-version }} is experimental'"
       - name: "checkout project"
         uses: "actions/checkout@v4"
         with:
@@ -51,10 +64,12 @@ jobs:
 
       - name: "Validate composer.json and composer.lock"
         run: "composer validate"
+        continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Get composer cache directory"
         id: "composer-cache"
         run: "echo \"dir=$(composer config cache-dir)\" >> $GITHUB_OUTPUT"
+        continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache composer dependencies"
         uses: "actions/cache@v4"
@@ -62,17 +77,21 @@ jobs:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
           restore-keys: "${{ runner.os }}-composer-"
+        continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Install dependencies"
         run: "composer ${{ matrix.composer-param }}"
+        continue-on-error: "${{ matrix.experimental }}"
 
       # Run phpunit with code coverage
       - name: "PHPUnit Tests"
         run: "vendor/bin/phpunit --coverage-clover=coverage.clover"
+        continue-on-error: "${{ matrix.experimental }}"
 
         # Uploading reports for analysis
       - name: "Upload code-coverage to scrutinizer"
         run: "vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover"
+        continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Publish code coverage to Code Climate"
         uses: "paambaati/codeclimate-action@v5"
@@ -82,5 +101,6 @@ jobs:
           coverageCommand: "vendor/bin/phpunit --coverage-clover=coverage.clover"
           coverageLocations: |
             coverage.clover:clover
+        continue-on-error: "${{ matrix.experimental }}"
 
 # vim: syntax=yaml ts=2 sw=2 et sr softtabstop=2 autoindent

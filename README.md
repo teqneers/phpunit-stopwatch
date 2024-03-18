@@ -1,6 +1,6 @@
 # phpunit-stopwatch
 
-[![CI](https://github.com/teqneers/phpunit-stopwatch/workflows/ci/badge.svg)](https://github.com/teqneers/phpunit-stopwatch/actions)
+[![CI](https://github.com/teqneers/phpunit-stopwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/teqneers/phpunit-stopwatch/actions)
 
 [![Code Coverage](https://codecov.io/gh/teqneers/phpunit-stopwatch/branch/main/graph/badge.svg)](https://codecov.io/gh/teqneers/phpunit-stopwatch)
 [![Type Coverage](https://shepherd.dev/github/teqneers/phpunit-stopwatch/coverage.svg)](https://shepherd.dev/github/teqneers/phpunit-stopwatch)
