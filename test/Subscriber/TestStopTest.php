@@ -50,4 +50,10 @@ final class TestStopTest extends TestCase
         self::assertEquals(10, $timing['duration']);
         self::assertEquals(1, $timing['times']);
     }
+
+    public function testStoppedWithoutStart(): void
+    {
+        $reportTest = new TestStop($this->collector);
+        $reportTest->notify(self::fakeEventTestFinished());
+    }
 }
