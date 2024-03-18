@@ -38,6 +38,7 @@ use PHPUnit\Event\TestSuite\Finished as TestSuiteFinished;
 use PHPUnit\Event\TestSuite\TestSuite;
 use PHPUnit\Event\TestSuite\TestSuiteForTestClass;
 use PHPUnit\Metadata\MetadataCollection;
+use PHPUnit\Runner\Version;
 
 trait Helper
 {
@@ -133,7 +134,19 @@ trait Helper
         ?bool $protected = false,
         ?bool $full = true,
         ?int $bufferSize = 0,
-    ): \PHPUnit\Event\Telemetry\GarbageCollectorStatus {
+    ): GarbageCollectorStatus {
+        if( version_compare(Version::id(), '10.3', '<')) {
+            return new GarbageCollectorStatus(
+                $runs,
+                $collected,
+                $threshold,
+                $roots,
+                $running,
+                $protected,
+                $full,
+            );
+        }
+
         return new GarbageCollectorStatus(
             $runs,
             $collected,
