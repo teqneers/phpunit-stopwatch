@@ -51,6 +51,9 @@ final class StopwatchTest extends TestCase
         self::assertEquals($totalTiming, $timing);
     }
 
+    /**
+     * It is expected that the start time is not updated if the stopwatch is started twice without stopping it
+     */
     public function testUnstoppedRestart(): void
     {
         $name = self::faker()->word();

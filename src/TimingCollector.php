@@ -40,6 +40,7 @@ final class TimingCollector
     {
         $time = (float)$this->clock->now()->format('U.u');
 
+        // only start timing if it was not started yet
         if (!isset($this->timing[$name])) {
             $this->timing[$name] = [
                 'start'    => $time,
@@ -58,9 +59,6 @@ final class TimingCollector
                     'times' => 0,
                 ];
             }
-        } else {
-            $this->timing[$name]['start']      = $time;
-            $this->totalTiming[$name]['start'] = $time;
         }
     }
 
