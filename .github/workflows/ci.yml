@@ -37,6 +37,7 @@ jobs:
             composer-param: [
                 "update --no-progress --prefer-dist --prefer-lowest",
                 "update --no-progress --prefer-dist"
+            ]
             experimental: true
         ]
     name: "PHP ${{ matrix.php-version }} test"
