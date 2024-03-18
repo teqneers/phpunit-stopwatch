@@ -10,18 +10,18 @@
 [![Type Coverage](https://shepherd.dev/github/teqneers/phpunit-stopwatch/coverage.svg)](https://shepherd.dev/github/teqneers/phpunit-stopwatch)
 
 This project provides a [`composer`](https://getcomposer.org) package and
-a [Phar archive](https://www.php.net/manual/en/book.phar.php) with an extension for measering and analysing parts of
+a [Phar archive](https://www.php.net/manual/en/book.phar.php) with an extension for measuring and analysing parts of
 your code during a test run with [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit).
 
 The extension is compatible with the following versions of `phpunit/phpunit`:
 
-- [`phpunit/phpunit:^10.0.0`](https://github.com/sebastianbergmann/phpunit/tree/10.0.0)
+- [`phpunit/phpunit:^10.1.0`](https://github.com/sebastianbergmann/phpunit/tree/10.1.0)
 - [`phpunit/phpunit:^11.0.0`](https://github.com/sebastianbergmann/phpunit/tree/11.0.0)
 
 Once you've added some measurement points to your code, the extension will stop watch and count them. The results are
-disployed for each test and as a total report at the end of the test run.
+displayed for each test and as a total report at the end of the test run.
 
-Here is an example of how the output of a single test class might look like:
+Here is an example of how the output of a single test class might look:
 
 ```console
 Stopwatch for TQ\Tests\Example\SingleTest::testDataCalculation:
@@ -179,7 +179,7 @@ When you have bootstrapped the extension, you can run your tests as usually. E.g
 vendor/bin/phpunit
 ```
 
-When the extension was used somewhere in your code, it will give you a report:
+When the extension is used somewhere in your code, it will give you a report:
 
 ## License
 
