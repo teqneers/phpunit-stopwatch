@@ -65,5 +65,57 @@
       <code><![CDATA[$name]]></code>
       <code><![CDATA[$testData]]></code>
     </ArgumentTypeCoercion>
+    <InvalidArgument>
+      <code><![CDATA[$full]]></code>
+      <code><![CDATA[$protected]]></code>
+      <code><![CDATA[$running]]></code>
+    </InvalidArgument>
+    <TooFewArguments>
+      <code><![CDATA[new GarbageCollectorStatus(
+                $runs,
+                $collected,
+                $threshold,
+                $roots,
+                $running,
+                $protected,
+                $full,
+            )]]></code>
+      <code><![CDATA[new GarbageCollectorStatus(
+                $runs,
+                $collected,
+                $threshold,
+                $roots,
+                $running,
+                $protected,
+                $full,
+            )]]></code>
+      <code><![CDATA[new GarbageCollectorStatus(
+                $runs,
+                $collected,
+                $threshold,
+                $roots,
+                $running,
+                $protected,
+                $full,
+            )]]></code>
+      <code><![CDATA[new GarbageCollectorStatus(
+                $runs,
+                $collected,
+                $threshold,
+                $roots,
+                $running,
+                $protected,
+                $full,
+            )]]></code>
+      <code><![CDATA[new GarbageCollectorStatus(
+                $runs,
+                $collected,
+                $threshold,
+                $roots,
+                $running,
+                $protected,
+                $full,
+            )]]></code>
+    </TooFewArguments>
   </file>
 </files>
