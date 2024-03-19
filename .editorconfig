@@ -28,13 +28,12 @@ ij_shell_redirect_followed_by_space = false
 ij_shell_switch_cases_indented = false
 
 [{*.yml,*.yaml}]
-indent_size = 4
-ij_continuation_indent_size = 4
+indent_size = 2
+ij_continuation_indent_size = 2
 ij_yaml_keep_indents_on_empty_lines = false
 ij_yaml_keep_line_breaks = true
 
 [*.php]
-ij_continuation_indent_size = 4
 ij_php_align_assignments = true
 ij_php_align_class_constants = true
 ij_php_align_group_field_declarations = true
@@ -248,18 +247,10 @@ ij_json_spaces_within_braces = false
 ij_json_spaces_within_brackets = false
 ij_json_wrap_long_lines = false
 
-[package.json]
-indent_size = 2
-
 [{phpunit.xml.dist,*.xslt,*.xul,*.rng,*.xsl,*.xsd,*.ant,*.jhm,*.tld,*.fxml,*.wsdl,*.jrxml,*.xml,*.jnlp,*.xlf}]
 ij_xml_block_comment_at_first_column = true
 ij_xml_keep_indents_on_empty_lines = false
 ij_xml_line_comment_at_first_column = true
-
-[Jenkinsfile*]
-indent_size = 2
-tab_width = 2
-ij_continuation_indent_size = 2
 
 [.editorconfig]
 ij_editorconfig_align_group_field_declarations = false

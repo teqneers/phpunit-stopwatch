@@ -59,7 +59,6 @@ rules:
     allowed-values:
       - "false"
       - "true"
-      - "on"
 
 yaml-files:
   - "*.yaml"

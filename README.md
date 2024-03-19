@@ -25,35 +25,35 @@ Here is an example of how the output of a single test class might look:
 
 ```console
 Stopwatch for TQ\Tests\Example\SingleTest::testDataCalculation:
-- TQ\Testing\Database::deleteData                         0.117secs (    3x, Ø   0.04) TOTAL    327.026secs (  184x, Ø   1.78)
-- ...onment\Testing::cleanupInstance                      0.259secs (    1x, Ø   0.26) TOTAL      6.159secs (   60x, Ø   0.10)
-- TQ\Testing\Database::import                             7.889secs (   11x, Ø   0.72) TOTAL    250.958secs (  352x, Ø   0.71)
-- Test                                                    1.428secs (    1x, Ø   1.43) TOTAL   1041.228secs (   70x, Ø  14.87)
+- TQ\Testing\Database::deleteData      0.117secs (    3x, Ø   0.04) TOTAL    327.026secs (  184x, Ø   1.78)
+- ...onment\Testing::cleanupInstance   0.259secs (    1x, Ø   0.26) TOTAL      6.159secs (   60x, Ø   0.10)
+- TQ\Testing\Database::import          7.889secs (   11x, Ø   0.72) TOTAL    250.958secs (  352x, Ø   0.71)
+- Test                                 1.428secs (    1x, Ø   1.43) TOTAL   1041.228secs (   70x, Ø  14.87)
 .
 
 Stopwatch for TQ\Tests\Example\SingleTest::testDataTransfer:
-- TQ\Testing\Database::deleteData                         0.116secs (    3x, Ø   0.04) TOTAL    327.142secs (  187x, Ø   1.75)
-- ...onment\Testing::cleanupInstance                      0.256secs (    1x, Ø   0.26) TOTAL      6.415secs (   61x, Ø   0.11)
-- TQ\Testing\Database::import                             7.573secs (   11x, Ø   0.69) TOTAL    258.531secs (  363x, Ø   0.71)
-- Test                                                    5.998secs (    1x, Ø   6.00) TOTAL   1047.226secs (   71x, Ø  14.75)
+- TQ\Testing\Database::deleteData      0.116secs (    3x, Ø   0.04) TOTAL    327.142secs (  187x, Ø   1.75)
+- ...onment\Testing::cleanupInstance   0.256secs (    1x, Ø   0.26) TOTAL      6.415secs (   61x, Ø   0.11)
+- TQ\Testing\Database::import          7.573secs (   11x, Ø   0.69) TOTAL    258.531secs (  363x, Ø   0.71)
+- Test                                 5.998secs (    1x, Ø   6.00) TOTAL   1047.226secs (   71x, Ø  14.75)
 .
 
 Stopwatch for TQ\Tests\Example\SingleTest TearDown:
-- TQ\Testing\Database::deleteData                        38.486secs (    6x, Ø   6.41) TOTAL    365.511secs (  190x, Ø   1.92)
-- ...onment\Testing::cleanupInstance                      0.256secs (    1x, Ø   0.26) TOTAL      6.415secs (   61x, Ø   0.11)
-- TQ\Testing\Database::import                             7.573secs (   11x, Ø   0.69) TOTAL    258.531secs (  363x, Ø   0.71)
-- Test                                                    5.998secs (    1x, Ø   6.00) TOTAL   1047.226secs (   71x, Ø  14.75)
+- TQ\Testing\Database::deleteData     38.486secs (    6x, Ø   6.41) TOTAL    365.511secs (  190x, Ø   1.92)
+- ...onment\Testing::cleanupInstance   0.256secs (    1x, Ø   0.26) TOTAL      6.415secs (   61x, Ø   0.11)
+- TQ\Testing\Database::import          7.573secs (   11x, Ø   0.69) TOTAL    258.531secs (  363x, Ø   0.71)
+- Test                                 5.998secs (    1x, Ø   6.00) TOTAL   1047.226secs (   71x, Ø  14.75)
 ```
 
 And at the end of the test run, you will get a summary of all stopwatches used, and it is going to look like this:
 
 ```console
 Stopwatch TOTALS:
-- Test                                                                                 TOTAL   1047.246secs (   78x, Ø  13.43)
-- TQ\Testing\Database::deleteData                                                      TOTAL    365.511secs (  190x, Ø   1.92)
-- TQ\Testing\Database::import                                                          TOTAL    258.531secs (  363x, Ø   0.71)
-- ...onment\Testing::cleanupInstance                                                   TOTAL      6.416secs (   62x, Ø   0.10)
-- TQ\Production\Monitoring::ping                                                       TOTAL     17.967secs (    7x, Ø   2.57)
+- Test                                     TOTAL   1047.246secs (   78x, Ø  13.43)
+- TQ\Testing\Database::deleteData          TOTAL    365.511secs (  190x, Ø   1.92)
+- TQ\Testing\Database::import              TOTAL    258.531secs (  363x, Ø   0.71)
+- ...onment\Testing::cleanupInstance       TOTAL      6.416secs (   62x, Ø   0.10)
+- TQ\Production\Monitoring::ping           TOTAL     17.967secs (    7x, Ø   2.57)
 ```
 
 ### Usage
