@@ -239,7 +239,7 @@ jobs:
       - name: "Install dependencies with phive"
         env:
           PHIVE_HOME: ".build/phive"
-        run: "phive install --no-progress --trust-gpg-keys 0x2DF45277AEF09A2F,0x033E5F8D801A2F8D,0x033E5F8D801A2F8D"
+        run: "phive --no-progress install --trust-gpg-keys 0x2DF45277AEF09A2F,0x033E5F8D801A2F8D,0x033E5F8D801A2F8D"
         shell: "bash"
 
       - name: "Run maglnet/composer-require-checker"
