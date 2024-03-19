@@ -1,6 +1,6 @@
 # phpunit-stopwatch
 
-[![Latest Stable Version](https://poser.pugx.org/teqneers/phpunit-stopwatch/v/stable)](https://packagist.org/packages/teqneers/phpunit-stopwatch)
+[![Latest Stable Version](https://poser.pugx.org/teqneers/phpunit-stopwatch/v)](https://packagist.org/packages/teqneers/phpunit-stopwatch)
 [![CI](https://github.com/teqneers/phpunit-stopwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/teqneers/phpunit-stopwatch/actions)
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/?branch=main)
