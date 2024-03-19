@@ -198,18 +198,11 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
 
-      - name: "Lint YAML files"
-        uses: "ibiqlik/action-yamllint@v3"
-        with:
-          config_file: ".yamllint.yaml"
-          file_or_dir: "."
-          strict: true
-
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
-          tools: "composer:v2"
+          tools: "phive"
           coverage: "none"
 
       - name: "Set up problem matchers for PHP"
@@ -276,13 +269,6 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
 
-      - name: "Lint YAML files"
-        uses: "ibiqlik/action-yamllint@v3"
-        with:
-          config_file: ".yamllint.yaml"
-          file_or_dir: "."
-          strict: true
-
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
         with:
@@ -337,13 +323,6 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
 
-      - name: "Lint YAML files"
-        uses: "ibiqlik/action-yamllint@v3"
-        with:
-          config_file: ".yamllint.yaml"
-          file_or_dir: "."
-          strict: true
-
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
         with:
@@ -397,13 +376,6 @@ jobs:
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
-
-      - name: "Lint YAML files"
-        uses: "ibiqlik/action-yamllint@v3"
-        with:
-          config_file: ".yamllint.yaml"
-          file_or_dir: "."
-          strict: true
 
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
