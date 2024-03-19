@@ -61,13 +61,12 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: "bcmath"
           tools: "composer:v2"
           # needed by PHPUnit code coverage
           coverage: "pcov"
 
       - name: "Validate composer.json and composer.lock"
-        run: "composer validate"
+        run: "composer validate --ansi --strict"
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Get composer cache directory"
@@ -92,11 +91,12 @@ jobs:
         run: "vendor/bin/phpunit --coverage-clover=coverage.clover"
         continue-on-error: "${{ matrix.experimental }}"
 
-      - name: "Upload coverage reports to Codecov"
-        uses: "codecov/codecov-action@v4.0.1"
+      - name: "Upload coverage reports to codecov.io"
+        uses: "codecov/codecov-action@v4"
         with:
             token: "${{ secrets.CODECOV_TOKEN }}"
             slug: "teqneers/phpunit-stopwatch"
+            files: "coverage.clover"
 
       # Uploading reports for analysis
       - name: "Upload code-coverage to scrutinizer"
@@ -112,5 +112,69 @@ jobs:
           coverageLocations: |
             coverage.clover:clover
         continue-on-error: "${{ matrix.experimental }}"
+
+  coding-standards:
+    name: "Coding Standards"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        php-version:
+          - "8.3"
+
+        composer-param: ["update --no-progress --prefer-dist"]
+
+        experimental: [false]
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Lint YAML files"
+        uses: "ibiqlik/action-yamllint@v3"
+        with:
+          config_file: ".yamllint.yaml"
+          file_or_dir: "."
+          strict: true
+
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          tools: "composer:v2"
+          coverage: "none"
+
+      - name: "Get composer cache directory"
+        id: "composer-cache"
+        run: "echo \"dir=$(composer config cache-dir)\" >> $GITHUB_OUTPUT"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Cache composer dependencies"
+        uses: "actions/cache@v4"
+        with:
+          path: "${{ steps.composer-cache.outputs.dir }}"
+          key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "${{ runner.os }}-composer-"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Install dependencies"
+        run: "composer ${{ matrix.composer-param }}"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Run ergebnis/composer-normalize"
+        run: "composer normalize --ansi --dry-run"
+
+      - name: "Cache cache directory for friendsofphp/php-cs-fixer"
+        uses: "actions/cache@v4"
+        with:
+          path: ".build/php-cs-fixer"
+          key: "php-${{ matrix.php-version }}-php-cs-fixer-${{ github.ref_name }}"
+          restore-keys: |
+            php-${{ matrix.php-version }}-php-cs-fixer-main
+            php-${{ matrix.php-version }}-php-cs-fixer-
+
+      - name: "Run friendsofphp/php-cs-fixer"
+        run: "vendor/bin/php-cs-fixer fix --ansi --config=.php-cs-fixer.php --diff --dry-run --show-progress=dots --verbose"
 
 # vim: syntax=yaml ts=2 sw=2 et sr softtabstop=2 autoindent
