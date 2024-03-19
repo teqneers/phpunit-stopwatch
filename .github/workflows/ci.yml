@@ -88,7 +88,7 @@ jobs:
 
       # Run phpunit with code coverage
       - name: "PHPUnit Tests"
-        run: "vendor/bin/phpunit it --colors=always --coverage-clover=coverage.clover"
+        run: "vendor/bin/phpunit --colors=always --coverage-clover=coverage.clover"
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Upload coverage reports to codecov.io"
