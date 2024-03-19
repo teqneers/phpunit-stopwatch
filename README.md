@@ -9,9 +9,21 @@
 [![codecov](https://codecov.io/gh/teqneers/phpunit-stopwatch/graph/badge.svg?token=U1T7ZGW5XW)](https://codecov.io/gh/teqneers/phpunit-stopwatch)
 [![Type Coverage](https://shepherd.dev/github/teqneers/phpunit-stopwatch/coverage.svg)](https://shepherd.dev/github/teqneers/phpunit-stopwatch)
 
+Project
+information: [![License](https://img.shields.io/github/license/teqneers/phpunit-stopwatch.svg?style=flat)](https://img.shields.io/github/license/teqneers/phpunit-stopwatch.svg?style=flat)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/teqneers/phpunit-stopwatch.svg?style=flat)]((https://img.shields.io/github/languages/code-size/teqneers/phpunit-stopwatch.svg?style=flat))
+
+Stopwatch is an essential [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit) extension for performance
+analysis!
+
+Gain invaluable insights into your code's execution time and call frequency during test runs. The extension is designed
+to elevate your code performance analysis. Track the execution time and frequency of any marked code segments to address
+performance bottlenecks with precision.
+You can identify performance bottlenecks (e.g., database cleanups or setup) or just monitor them over time. The
+extension will generate stopwatch reports for each test as well as a summary report at the end of the test run.
+
 This project provides a [`composer`](https://getcomposer.org) package and
-a [Phar archive](https://www.php.net/manual/en/book.phar.php) with an extension for measuring and analysing parts of
-your code during a test run with [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit).
+a [Phar archive](https://www.php.net/manual/en/book.phar.php).
 
 The extension is compatible with the following versions of `phpunit/phpunit`:
 
@@ -58,11 +70,11 @@ Stopwatch TOTALS:
 
 ### Usage
 
-Stopwatch is very easy to use. All you need is to start and stop the stopwatch anywhere in your code with a single line
-of code.
-Let's say your tests are pretty slow, but you don't know who's the culprit? Your guess is that it might be in the
-database setup.
-Go there and add this around the code you suspect:
+Stopwatch is very easy to use. A single line of code wrapped around the code you want to measure is all it takes.
+
+For instance, let's say your tests are pretty slow, but you don't know who's the culprit? You suspect that it might be
+the
+database setup that has to be done for each and every test. Simply wrap the suspected code block as follows:
 
 ```php
         Stopwatch::start(__METHOD__);
@@ -75,8 +87,8 @@ Go there and add this around the code you suspect:
         Stopwatch::stop(__METHOD__);
 ```
 
-If a test, a setUp, tearDown, setUpBeforeClass or tearDownAfterClass method executes that code, the stopwatch will
-measure the time it takes to execute the code between the start and stop calls and display it in the test output.
+Should the test, setup, teardown, or other relevant methods execute this code, Stopwatch will seamlessly measure its
+execution time and count, and will present the results within the test output.
 
 ## Installation
 
@@ -112,7 +124,7 @@ To bootstrap the extension as a `composer` package when using
 adjust your `phpunit.xml` configuration file and configure the
 
 - [`extensions` element](https://docs.phpunit.de/en/10.5/configuration.html#the-extensions-element)
-  on [`phpunit/phpunit:^10.0.0`](https://docs.phpunit.de/en/10.5/)
+  on [`phpunit/phpunit:^10.1.0`](https://docs.phpunit.de/en/10.5/)
 - [`extensions` element](https://docs.phpunit.de/en/11.0/configuration.html#the-extensions-element)
   on [`phpunit/phpunit:^11.0.0`](https://docs.phpunit.de/en/11.0/)
 
@@ -137,7 +149,7 @@ adjust your `phpunit.xml` configuration file and configure the
 
 To bootstrap the extension as a PHAR when using
 
-- `phpunit/phpunit:^10.0.0`
+- `phpunit/phpunit:^10.1.0`
 - `phpunit/phpunit:^11.0.0`
 
 adjust your `phpunit.xml` configuration file and configure the
@@ -169,7 +181,7 @@ adjust your `phpunit.xml` configuration file and configure the
 
 ### Configuring the extension
 
-So far, there are no configuration settings for the extension.
+So far, there are no configuration settings for this extension.
 
 ### Running tests
 
