@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/teqneers/phpunit-stopwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/teqneers/phpunit-stopwatch/actions)
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/?branch=main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/?branch=main)
 [![Code Coverage](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/teqneers/phpunit-stopwatch/?branch=main)
 [![Code Climate](https://codeclimate.com/github/teqneers/phpunit-stopwatch/badges/gpa.svg)](https://codeclimate.com/github/teqneers/phpunit-stopwatch)
 
