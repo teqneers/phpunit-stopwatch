@@ -52,7 +52,7 @@ final class StopwatchTest extends TestCase
     }
 
     /**
-     * It is expected that the start time is not updated if the stopwatch is started twice without stopping it
+     * It is expected that the start time is not updated if the stopwatch is started twice without stopping it.
      */
     public function testUnstoppedRestart(): void
     {

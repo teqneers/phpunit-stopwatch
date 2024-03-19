@@ -1,11 +1,11 @@
 build:
   environment:
-    php: 8.1.2
+    php: "8.1.2"
   nodes:
     analysis:
       tests:
         override:
-          - php-scrutinizer-run
+          - "php-scrutinizer-run"
 
 filter:
   paths: ["src/*"]
@@ -29,8 +29,5 @@ tools:
   php_cpd:
     enabled: true
     excluded_dirs: ["test"]
-
-#before_commands:
-#  - "composer install"
 
 # vim: syntax=yaml ts=2 sw=2 et sr softtabstop=2 autoindent

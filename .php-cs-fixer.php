@@ -42,6 +42,10 @@ $config->getFinder()
     ->exclude([
         '.build/',
         '.github/',
+        '.phive/',
+        '.phpunit.cache/',
+        'vendor/',
+        'phar/',
     ])
     ->ignoreDotFiles(false)
     ->in(__DIR__);

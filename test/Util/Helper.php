@@ -136,6 +136,7 @@ trait Helper
         ?int $bufferSize = 0,
     ): GarbageCollectorStatus {
         if (\version_compare(Version::id(), '10.3', '<')) {
+            /** @psalm-suppress TooFewArguments */
             return new GarbageCollectorStatus(
                 $runs,
                 $collected,
@@ -171,9 +172,9 @@ trait Helper
         ?GarbageCollectorStatus $garbageCollectorStatus = null,
     ): Snapshot {
         return new Snapshot(
-            $time ?? HRTime::fromSecondsAndNanoseconds(0, 0),
-            $memoryUsage ?? MemoryUsage::fromBytes(0),
-            $peakMemoryUsage ?? MemoryUsage::fromBytes(0),
+            $time                   ?? HRTime::fromSecondsAndNanoseconds(0, 0),
+            $memoryUsage            ?? MemoryUsage::fromBytes(0),
+            $peakMemoryUsage        ?? MemoryUsage::fromBytes(0),
             $garbageCollectorStatus ?? self::fakeGarbageCollectorStatus(),
         );
     }
@@ -186,10 +187,10 @@ trait Helper
         ?MemoryUsage $peakMemoryUsage = null,
     ): Info {
         return new Info(
-            $snapshot ?? self::fakeTelemetrySnapshot(),
-            $duration ?? Duration::fromSecondsAndNanoseconds(0, 0),
-            $memoryUsage ?? MemoryUsage::fromBytes(0),
-            $time ?? Duration::fromSecondsAndNanoseconds(0, 0),
+            $snapshot        ?? self::fakeTelemetrySnapshot(),
+            $duration        ?? Duration::fromSecondsAndNanoseconds(0, 0),
+            $memoryUsage     ?? MemoryUsage::fromBytes(0),
+            $time            ?? Duration::fromSecondsAndNanoseconds(0, 0),
             $peakMemoryUsage ?? MemoryUsage::fromBytes(0),
         );
     }
@@ -200,7 +201,7 @@ trait Helper
         int $result = 1,
     ): Finished {
         return new Finished(
-            $info ?? self::fakeTelemetryInfo(),
+            $info       ?? self::fakeTelemetryInfo(),
             $testMethod ?? self::fakeTestMethod(),
             $result,
         );
@@ -280,7 +281,7 @@ trait Helper
         ?TestSuite $testSuite = null,
     ): TestSuiteFinished {
         return new TestSuiteFinished(
-            $info ?? self::fakeTelemetryInfo(),
+            $info      ?? self::fakeTelemetryInfo(),
             $testSuite ?? self::fakeTestSuite(),
         );
     }
