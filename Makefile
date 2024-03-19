@@ -12,7 +12,7 @@ vendor: composer.json composer.lock
 .PHONY: static-code-analysis
 static-code-analysis: vendor ## Runs a static code analysis with vimeo/psalm
 	vendor/bin/psalm --config=psalm.xml --clear-cache
-	vendor/bin/psalm --config=psalm.xml --show-info=false --stats --threads=4
+	vendor/bin/psalm --config=psalm.xml --show-info=false --stats --threads=4 --shepherd
 
 .PHONY: static-code-analysis-baseline
 static-code-analysis-baseline: vendor ## Generates a baseline for static code analysis with vimeo/psalm

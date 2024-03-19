@@ -88,7 +88,7 @@ jobs:
 
       # Run phpunit with code coverage
       - name: "PHPUnit Tests"
-        run: "vendor/bin/phpunit --coverage-clover=coverage.clover"
+        run: "vendor/bin/phpunit it --colors=always --coverage-clover=coverage.clover"
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Upload coverage reports to codecov.io"
@@ -120,11 +120,8 @@ jobs:
 
     strategy:
       matrix:
-        php-version:
-          - "8.3"
-
+        php-version: ["8.3"]
         composer-param: ["update --no-progress --prefer-dist"]
-
         experimental: [false]
 
     steps:
@@ -176,5 +173,179 @@ jobs:
 
       - name: "Run friendsofphp/php-cs-fixer"
         run: "vendor/bin/php-cs-fixer fix --ansi --config=.php-cs-fixer.php --diff --dry-run --show-progress=dots --verbose"
+
+  refactoring:
+    name: "Refactoring"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        php-version: ["8.3"]
+        composer-param: ["update --no-progress --prefer-dist"]
+        experimental: [false]
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Lint YAML files"
+        uses: "ibiqlik/action-yamllint@v3"
+        with:
+          config_file: ".yamllint.yaml"
+          file_or_dir: "."
+          strict: true
+
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          tools: "composer:v2"
+          coverage: "none"
+
+      - name: "Get composer cache directory"
+        id: "composer-cache"
+        run: "echo \"dir=$(composer config cache-dir)\" >> $GITHUB_OUTPUT"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Cache composer dependencies"
+        uses: "actions/cache@v4"
+        with:
+          path: "${{ steps.composer-cache.outputs.dir }}"
+          key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "${{ runner.os }}-composer-"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Install dependencies"
+        run: "composer ${{ matrix.composer-param }}"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Cache directory for rector/rector"
+        uses: "actions/cache@v4"
+        with:
+          path: ".build/rector"
+          key: "php-${{ matrix.php-version }}-rector-${{ github.ref_name }}"
+          restore-keys: |
+            php-${{ matrix.php-version }}-rector-main
+            php-${{ matrix.php-version }}-rector-
+
+      - name: "Run automated refactoring with rector/rector"
+        run: "vendor/bin/rector --ansi --config=rector.php --dry-run"
+
+  security-analysis:
+    name: "Security Analysis"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        php-version: ["8.3"]
+        composer-param: ["update --no-progress --prefer-dist"]
+        experimental: [false]
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Lint YAML files"
+        uses: "ibiqlik/action-yamllint@v3"
+        with:
+          config_file: ".yamllint.yaml"
+          file_or_dir: "."
+          strict: true
+
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          tools: "composer:v2"
+          coverage: "none"
+
+      - name: "Get composer cache directory"
+        id: "composer-cache"
+        run: "echo \"dir=$(composer config cache-dir)\" >> $GITHUB_OUTPUT"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Cache composer dependencies"
+        uses: "actions/cache@v4"
+        with:
+          path: "${{ steps.composer-cache.outputs.dir }}"
+          key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "${{ runner.os }}-composer-"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Install dependencies"
+        run: "composer ${{ matrix.composer-param }}"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Cache directory for rector/rector"
+        uses: "actions/cache@v4"
+        with:
+          path: ".build/rector"
+          key: "php-${{ matrix.php-version }}-rector-${{ github.ref_name }}"
+          restore-keys: |
+            php-${{ matrix.php-version }}-rector-main
+            php-${{ matrix.php-version }}-rector-
+
+      - name: "Check installed packages for security vulnerability advisories"
+        run: "composer audit --ansi"
+
+  static-code-analysis:
+    name: "Static Code Analysis"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        php-version: ["8.3"]
+        composer-param: ["update --no-progress --prefer-dist"]
+        experimental: [false]
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Lint YAML files"
+        uses: "ibiqlik/action-yamllint@v3"
+        with:
+          config_file: ".yamllint.yaml"
+          file_or_dir: "."
+          strict: true
+
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          tools: "composer:v2"
+          coverage: "none"
+
+      - name: "Get composer cache directory"
+        id: "composer-cache"
+        run: "echo \"dir=$(composer config cache-dir)\" >> $GITHUB_OUTPUT"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Cache composer dependencies"
+        uses: "actions/cache@v4"
+        with:
+          path: "${{ steps.composer-cache.outputs.dir }}"
+          key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "${{ runner.os }}-composer-"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Install dependencies"
+        run: "composer ${{ matrix.composer-param }}"
+        continue-on-error: "${{ matrix.experimental }}"
+
+      - name: "Cache directory for rector/rector"
+        uses: "actions/cache@v4"
+        with:
+          path: ".build/rector"
+          key: "php-${{ matrix.php-version }}-rector-${{ github.ref_name }}"
+          restore-keys: |
+            php-${{ matrix.php-version }}-rector-main
+            php-${{ matrix.php-version }}-rector-
+
+      - name: "Run vimeo/psalm"
+        run: "vendor/bin/psalm --config=psalm.xml --output-format=github --shepherd --show-info=false --stats --threads=4"
 
 # vim: syntax=yaml ts=2 sw=2 et sr softtabstop=2 autoindent

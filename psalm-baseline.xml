@@ -27,11 +27,9 @@
     <MixedArrayAssignment>
       <code><![CDATA[$this->timing[$name]['duration']]]></code>
       <code><![CDATA[$this->timing[$name]['end']]]></code>
-      <code><![CDATA[$this->timing[$name]['start']]]></code>
       <code><![CDATA[$this->timing[$name]['times']]]></code>
       <code><![CDATA[$this->totalTiming[$name]['duration']]]></code>
       <code><![CDATA[$this->totalTiming[$name]['end']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['start']]]></code>
       <code><![CDATA[$this->totalTiming[$name]['times']]]></code>
     </MixedArrayAssignment>
     <MixedAssignment>
@@ -70,52 +68,5 @@
       <code><![CDATA[$protected]]></code>
       <code><![CDATA[$running]]></code>
     </InvalidArgument>
-    <TooFewArguments>
-      <code><![CDATA[new GarbageCollectorStatus(
-                $runs,
-                $collected,
-                $threshold,
-                $roots,
-                $running,
-                $protected,
-                $full,
-            )]]></code>
-      <code><![CDATA[new GarbageCollectorStatus(
-                $runs,
-                $collected,
-                $threshold,
-                $roots,
-                $running,
-                $protected,
-                $full,
-            )]]></code>
-      <code><![CDATA[new GarbageCollectorStatus(
-                $runs,
-                $collected,
-                $threshold,
-                $roots,
-                $running,
-                $protected,
-                $full,
-            )]]></code>
-      <code><![CDATA[new GarbageCollectorStatus(
-                $runs,
-                $collected,
-                $threshold,
-                $roots,
-                $running,
-                $protected,
-                $full,
-            )]]></code>
-      <code><![CDATA[new GarbageCollectorStatus(
-                $runs,
-                $collected,
-                $threshold,
-                $roots,
-                $running,
-                $protected,
-                $full,
-            )]]></code>
-    </TooFewArguments>
   </file>
 </files>
