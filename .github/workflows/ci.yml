@@ -252,7 +252,7 @@ jobs:
         shell: "bash"
 
       - name: "Run maglnet/composer-require-checker"
-        run: ".phive/composer-require-checker check --ansi --config-file=$(pwd)/composer-require-checker.json --verbose"
+        run: ".phive/composer-require-checker check --ansi --config-file=.build/phive/composer-require-checker.json --verbose"
 
   refactoring:
     name: "Refactoring"
