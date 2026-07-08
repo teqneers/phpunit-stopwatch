@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ * Copyright (c) 2024-2026 TEQneers GmbH & Co. KG
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -47,7 +47,7 @@ final class StopwatchTest extends TestCase
         self::assertEquals(0, $timing['times']);
 
         // total timing should be the same if no reset has been triggered
-        $totalTiming = $this->collector->getTiming($name);
+        $totalTiming = $this->collector->getTotalTiming($name);
         self::assertEquals($totalTiming, $timing);
     }
 
@@ -76,7 +76,7 @@ final class StopwatchTest extends TestCase
         self::assertEquals(0, $timing['times']);
 
         // total timing should be the same if no reset has been triggered
-        $totalTiming = $this->collector->getTiming($name);
+        $totalTiming = $this->collector->getTotalTiming($name);
         self::assertEquals($totalTiming, $timing);
     }
 
@@ -102,7 +102,7 @@ final class StopwatchTest extends TestCase
         self::assertEquals(1, $timing['times']);
 
         // total timing should be the same if no reset has been triggered
-        $totalTiming = $this->collector->getTiming($name);
+        $totalTiming = $this->collector->getTotalTiming($name);
         self::assertEquals($totalTiming, $timing);
     }
 
@@ -134,7 +134,7 @@ final class StopwatchTest extends TestCase
         self::assertEquals(3, $timing['times']);
 
         // total timing should be the same if no reset has been triggered
-        $totalTiming = $this->collector->getTiming($name);
+        $totalTiming = $this->collector->getTotalTiming($name);
         self::assertEquals($totalTiming, $timing);
     }
 

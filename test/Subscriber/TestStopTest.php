@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2024 TEQneers GmbH & Co. KG
+ * Copyright (c) 2024-2026 TEQneers GmbH & Co. KG
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -56,7 +56,8 @@ final class TestStopTest extends TestCase
         $reportTest = new TestStop($this->collector);
         $reportTest->notify(self::fakeEventTestFinished());
 
-        // the above code should NOT throw an exception
-        self::assertTrue(true);
+        // stopping a never-started timer must be a silent no-op — no exception,
+        // and nothing recorded for 'Test'
+        self::assertFalse($this->collector->isStarted('Test'));
     }
 }
