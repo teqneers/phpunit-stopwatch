@@ -28,10 +28,8 @@ refactoring: vendor ## Runs automated refactoring with rector/rector
 	vendor/bin/rector process --config=rector.php
 
 .PHONY: tests
-tests: phar ## Runs unit, end-to-end, and phar tests with phpunit/phpunit
+tests: phar ## Runs unit and end-to-end tests with phpunit/phpunit
 	vendor/bin/phpunit --testdox --display-warnings --display-notices
-	#vendor/bin/phpunit --configuration=test/EndToEnd/Version11/phpunit.xml
-    #vendor/bin/phpunit --configuration=test/Phar/Version10/phpunit.xml
 
 .PHONY: phar
 phar: phive ## Builds a phar with humbug/box
