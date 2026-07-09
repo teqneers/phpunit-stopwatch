@@ -59,3 +59,23 @@ coding-standards: vendor ## Lints YAML files with yamllint, normalizes composer.
 	yamllint -c .yamllint.yaml --strict .
 	composer normalize
 	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --show-progress=dots --verbose
+
+.PHONY: docker-build
+docker-build: ## Builds the Docker test images for all supported PHP versions
+	docker compose build
+
+.PHONY: docker-test
+docker-test: ## Runs the test suite on every supported PHP version in Docker
+	@for s in php81 php82 php83 php84 php85; do echo "===== $$s ====="; docker compose run --rm "$$s" || exit 1; done
+
+.PHONY: docker-test-lowest
+docker-test-lowest: ## Runs the suite with --prefer-lowest on every PHP version in Docker
+	@for s in php81 php82 php83 php84 php85; do echo "===== $$s (prefer-lowest) ====="; docker compose run --rm -e COMPOSER_FLAGS=--prefer-lowest "$$s" || exit 1; done
+
+.PHONY: docker-analysis
+docker-analysis: ## Runs psalm and php-cs-fixer (dry-run) in the PHP 8.3 container
+	docker compose run --rm -e KEEP_DEV_TOOLS=1 php83 sh -c "vendor/bin/psalm --config=psalm.xml && vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --dry-run --diff"
+
+.PHONY: docker-shell
+docker-shell: ## Opens a shell in a PHP container, e.g. make docker-shell PHP=83
+	docker compose run --rm "php$(PHP)" sh

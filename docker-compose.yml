@@ -1,0 +1,60 @@
+# Local multi-version test environment. Build/run via the docker-* Makefile
+# targets, e.g. `make docker-test`, or directly:
+#   docker compose run --rm php83                                  # run the suite on PHP 8.3
+#   COMPOSER_FLAGS=--prefer-lowest docker compose run --rm php81   # lowest deps
+#   make docker-analysis                                           # psalm + cs-fixer on PHP 8.3
+# Test runs drop the internal analysis tooling (psalm/rector/...) so the suite can
+# run on every PHP version; see docker/entrypoint.sh (KEEP_DEV_TOOLS=1 keeps them).
+services:
+  php81:
+    build:
+      context: "./docker"
+      args:
+        PHP_VERSION: "8.1"
+    volumes:
+      - ".:/app"
+      - "vendor-php81:/app/vendor"
+      - "composer-cache:/tmp/composer-cache"
+  php82:
+    build:
+      context: "./docker"
+      args:
+        PHP_VERSION: "8.2"
+    volumes:
+      - ".:/app"
+      - "vendor-php82:/app/vendor"
+      - "composer-cache:/tmp/composer-cache"
+  php83:
+    build:
+      context: "./docker"
+      args:
+        PHP_VERSION: "8.3"
+    volumes:
+      - ".:/app"
+      - "vendor-php83:/app/vendor"
+      - "composer-cache:/tmp/composer-cache"
+  php84:
+    build:
+      context: "./docker"
+      args:
+        PHP_VERSION: "8.4"
+    volumes:
+      - ".:/app"
+      - "vendor-php84:/app/vendor"
+      - "composer-cache:/tmp/composer-cache"
+  php85:
+    build:
+      context: "./docker"
+      args:
+        PHP_VERSION: "8.5"
+    volumes:
+      - ".:/app"
+      - "vendor-php85:/app/vendor"
+      - "composer-cache:/tmp/composer-cache"
+volumes:
+  vendor-php81: {}
+  vendor-php82: {}
+  vendor-php83: {}
+  vendor-php84: {}
+  vendor-php85: {}
+  composer-cache: {}
