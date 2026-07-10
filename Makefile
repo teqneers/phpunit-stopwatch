@@ -34,15 +34,18 @@ tests: phar ## Runs unit and end-to-end tests with phpunit/phpunit
 .PHONY: phar
 phar: phive ## Builds a phar with humbug/box
 	.phive/box validate box.json
-	#composer remove ergebnis/php-cs-fixer-config psalm/plugin-phpunit vimeo/psalm --dev --no-interaction --quiet
-	#composer remove phpunit/phpunit --no-interaction --quiet
+	cp composer.json .build/composer.json.bak
+	cp composer.lock .build/composer.lock.bak
+	composer remove --no-interaction --no-scripts --quiet phpunit/phpunit
 	.phive/box compile --config=box.json
-	#git checkout HEAD -- composer.json composer.lock
+	mv .build/composer.json.bak composer.json
+	mv .build/composer.lock.bak composer.lock
+	composer install --no-interaction --quiet
 	.phive/box info .build/phar/phpunit-stopwatch.phar --list
 
 .PHONY: phive
 phive: .phive ## Installs dependencies with phive
-	PHIVE_HOME=.build/phive phive install --trust-gpg-keys 0x2DF45277AEF09A2F,0x033E5F8D801A2F8D,0x033E5F8D801A2F8D
+	PHIVE_HOME=.build/phive phive install --trust-gpg-keys 0x2DF45277AEF09A2F,0x033E5F8D801A2F8D
 
 .PHONY: code-coverage
 code-coverage: vendor ## Collects coverage from running unit tests with phpunit/phpunit
