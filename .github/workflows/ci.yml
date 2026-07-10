@@ -208,7 +208,7 @@ jobs:
         shell: "bash"
 
       - name: "Cache dependencies installed with phive"
-        uses: "actions/cache@v4.0.1"
+        uses: "actions/cache@v4"
         with:
           path: ".build/phive"
           key: "phive-hashFiles('**/phars.xml')"
@@ -428,7 +428,7 @@ jobs:
         shell: "bash"
 
       - name: "Cache dependencies installed with phive"
-        uses: "actions/cache@v4.0.1"
+        uses: "actions/cache@v4"
         with:
           path: ".build/phive"
           key: "phive-${{ hashFiles('**/phars.xml') }}"
