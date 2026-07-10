@@ -1,56 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="6.16.1@f1f5de594dc76faf8784e02d3dc4716c91c6f6ac">
-  <file src="src/Reporter/DefaultReporter.php">
-    <MixedArgument>
-      <code><![CDATA[$duration]]></code>
-      <code><![CDATA[$duration / $times]]></code>
-      <code><![CDATA[$times]]></code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$name]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$duration]]></code>
-      <code><![CDATA[$times]]></code>
-    </MixedAssignment>
-    <MixedOperand>
-      <code><![CDATA[$times]]></code>
-    </MixedOperand>
-  </file>
-  <file src="src/TimingCollector.php">
-    <MixedArrayAccess>
-      <code><![CDATA[$this->timing[$name]['duration']]]></code>
-      <code><![CDATA[$this->timing[$name]['start']]]></code>
-      <code><![CDATA[$this->timing[$name]['times']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['duration']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['times']]]></code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment>
-      <code><![CDATA[$this->timing[$name]['duration']]]></code>
-      <code><![CDATA[$this->timing[$name]['end']]]></code>
-      <code><![CDATA[$this->timing[$name]['times']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['duration']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['end']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['times']]]></code>
-    </MixedArrayAssignment>
-    <MixedAssignment>
-      <code><![CDATA[$duration]]></code>
-    </MixedAssignment>
-    <MixedOperand>
-      <code><![CDATA[$this->timing[$name]['duration']]]></code>
-      <code><![CDATA[$this->timing[$name]['start']]]></code>
-      <code><![CDATA[$this->timing[$name]['times']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['duration']]]></code>
-      <code><![CDATA[$this->totalTiming[$name]['times']]]></code>
-    </MixedOperand>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->timing[$name]]]></code>
-      <code><![CDATA[$this->totalTiming[$name]]]></code>
-    </MixedReturnStatement>
-  </file>
   <file src="test/EndToEnd/EndToEndTest.php">
     <MixedArgumentTypeCoercion>
       <code><![CDATA[$outputLines]]></code>

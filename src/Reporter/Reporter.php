@@ -15,8 +15,14 @@ namespace TQ\Testing\Extension\Stopwatch\Reporter;
 
 /**
  * @internal
+ *
+ * @psalm-import-type TimingMap from \TQ\Testing\Extension\Stopwatch\TimingCollector
  */
 interface Reporter
 {
+    /**
+     * @param TimingMap      $totals
+     * @param null|TimingMap $current
+     */
     public function report(string $headline, array $totals, ?array $current = null): string;
 }

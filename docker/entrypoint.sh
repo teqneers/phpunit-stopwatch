@@ -31,7 +31,7 @@ if [ "${KEEP_DEV_TOOLS:-0}" != "1" ]; then
     composer remove --dev --no-update --no-interaction \
         vimeo/psalm psalm/plugin-phpunit rector/rector \
         ergebnis/php-cs-fixer-config ergebnis/composer-normalize \
-        ergebnis/license scrutinizer/ocular >/dev/null 2>&1 || true
+        ergebnis/license >/dev/null 2>&1 || true
 fi
 
 echo "» PHP $(php -r 'echo PHP_VERSION;') — resolving dependencies${COMPOSER_FLAGS:+ ($COMPOSER_FLAGS)}..."

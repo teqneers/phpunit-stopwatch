@@ -9,6 +9,8 @@
 /.php-cs-fixer.php              export-ignore
 /.yamllint.yaml                 export-ignore
 /box.json                       export-ignore
+/CHANGELOG.md                   export-ignore
+/CLAUDE.md                      export-ignore
 /composer-require-checker.json  export-ignore
 /composer.lock                  export-ignore
 /docker-compose.yml             export-ignore

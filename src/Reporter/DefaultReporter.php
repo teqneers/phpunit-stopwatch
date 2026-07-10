@@ -15,27 +15,52 @@ namespace TQ\Testing\Extension\Stopwatch\Reporter;
 
 /**
  * @internal
+ *
+ * @psalm-import-type TimingData from \TQ\Testing\Extension\Stopwatch\TimingCollector
+ * @psalm-import-type TimingMap from \TQ\Testing\Extension\Stopwatch\TimingCollector
  */
 final class DefaultReporter implements Reporter
 {
+    /**
+     * Width of the name column in the per-test report.
+     */
+    private const NAME_WIDTH = 50;
+
+    /**
+     * Width of the name column in the totals-only report. It is wider than
+     * {@see self::NAME_WIDTH} because that report omits the per-test timing column.
+     */
+    private const TOTALS_NAME_WIDTH = self::NAME_WIDTH + 34;
+
+    /**
+     * Names longer than this are truncated with a leading ellipsis.
+     */
+    private const MAX_NAME_LENGTH = self::NAME_WIDTH;
+
+    /**
+     * Number of trailing characters kept from a truncated name (after the ellipsis).
+     */
+    private const TRUNCATED_TAIL = self::NAME_WIDTH - 4;
+    private const ELLIPSIS       = '...';
+
+    /**
+     * @param TimingMap      $totals
+     * @param null|TimingMap $current
+     */
     public function report(string $headline, array $totals, ?array $current = null): string
     {
-        $output    = '';
-        $nameWidth = 50;
+        $output = '';
 
         if (null !== $current) {
             if (!empty($current)) {
                 $output .= "\n\n{$headline}:\n";
 
-                /** @var array $stopWatch */
                 foreach ($current as $name => $stopWatch) {
-                    /** @var array $total */
                     $total = $totals[$name];
 
-                    $printName = \strlen($name) > 50 ? '...' . \substr($name, -46) : $name;
                     $output .= \sprintf(
-                        "- %-{$nameWidth}s %-s TOTAL %-s\n",
-                        $printName,
+                        '- %-' . self::NAME_WIDTH . "s %-s TOTAL %-s\n",
+                        self::truncateName($name),
                         self::measureString($stopWatch),
                         self::measureString($total),
                     );
@@ -45,17 +70,13 @@ final class DefaultReporter implements Reporter
             return $output;
         }
 
-        $nameWidth += 34;
-
         if (!empty($totals)) {
             $output .= "\n\nStopwatch TOTALS:\n";
 
-            /** @var array $total */
             foreach ($totals as $name => $total) {
-                $printName = \strlen($name) > 50 ? '...' . \substr($name, -46) : $name;
                 $output .= \sprintf(
-                    "- %-{$nameWidth}s TOTAL %-s\n",
-                    $printName,
+                    '- %-' . self::TOTALS_NAME_WIDTH . "s TOTAL %-s\n",
+                    self::truncateName($name),
                     self::measureString($total),
                 );
             }
@@ -64,6 +85,16 @@ final class DefaultReporter implements Reporter
         return $output;
     }
 
+    private static function truncateName(string $name): string
+    {
+        return \strlen($name) > self::MAX_NAME_LENGTH
+            ? self::ELLIPSIS . \substr($name, -self::TRUNCATED_TAIL)
+            : $name;
+    }
+
+    /**
+     * @param TimingData $dataPoint
+     */
     private static function measureString(array $dataPoint): string
     {
         $times    = $dataPoint['times'];
@@ -72,7 +103,7 @@ final class DefaultReporter implements Reporter
         // Build the average as a string so the "-" fallback (used when a timer was
         // started but never stopped) is not coerced to 0.00 by a %f specifier.
         $average = 0 < $times
-            ? \sprintf('%6.2f', $duration / $times)
+            ? \sprintf('%6.2f', $duration / (float)$times)
             : \sprintf('%6s', '-');
 
         return \sprintf('%10.3fsecs (%5dx, Ø %s)', $duration, $times, $average);

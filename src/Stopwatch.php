@@ -40,12 +40,16 @@ final class Stopwatch
         self::$collector->start($name);
     }
 
-    public static function stop(string $name, bool $force = false): void
+    /**
+     * @param bool $silent when true, stopping a timer that was never started is a
+     *                     no-op instead of throwing a StopwatchException
+     */
+    public static function stop(string $name, bool $silent = false): void
     {
         if (!self::$collector) {
             return;
         }
 
-        self::$collector->stop($name, $force);
+        self::$collector->stop($name, $silent);
     }
 }

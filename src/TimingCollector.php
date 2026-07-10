@@ -17,9 +17,20 @@ use Psr\Clock\ClockInterface;
 use Symfony\Component\Clock\Clock;
 use TQ\Testing\Extension\Stopwatch\Exception\StopwatchException;
 
+/**
+ * @psalm-type TimingData = array{start: float, end: float|null, duration: float|null, times: int}
+ * @psalm-type TimingMap = array<string, TimingData>
+ */
 final class TimingCollector
 {
-    private array $timing      = [];
+    /**
+     * @var TimingMap
+     */
+    private array $timing = [];
+
+    /**
+     * @var TimingMap
+     */
     private array $totalTiming = [];
 
     public function __construct(private readonly ClockInterface $clock = new Clock())
@@ -45,7 +56,7 @@ final class TimingCollector
                 'start'    => $time,
                 'end'      => null,
                 'duration' => null,
-                // time means how many times the stopwatch for $name was used
+                // times means how many times the stopwatch for $name was used
                 'times' => 0,
             ];
 
@@ -54,7 +65,7 @@ final class TimingCollector
                     'start'    => $time,
                     'end'      => null,
                     'duration' => null,
-                    // time means how many times the stopwatch for $name was used
+                    // times means how many times the stopwatch for $name was used
                     'times' => 0,
                 ];
             }
@@ -73,13 +84,14 @@ final class TimingCollector
             throw new StopwatchException("Stopwatch {$name} not started");
         }
 
-        $duration                   = $time - $this->timing[$name]['start'];
-        $this->timing[$name]['end'] = $time;
-        $this->timing[$name]['duration'] += $duration;
+        $duration = $time - $this->timing[$name]['start'];
+
+        $this->timing[$name]['end']      = $time;
+        $this->timing[$name]['duration'] = ($this->timing[$name]['duration'] ?? 0.0) + $duration;
         ++$this->timing[$name]['times'];
 
-        $this->totalTiming[$name]['end'] = $time;
-        $this->totalTiming[$name]['duration'] += $duration;
+        $this->totalTiming[$name]['end']      = $time;
+        $this->totalTiming[$name]['duration'] = ($this->totalTiming[$name]['duration'] ?? 0.0) + $duration;
         ++$this->totalTiming[$name]['times'];
     }
 
@@ -88,6 +100,9 @@ final class TimingCollector
         return isset($this->timing[$name]);
     }
 
+    /**
+     * @return ($name is string ? TimingData : TimingMap)
+     */
     public function getTiming(?string $name = null): array
     {
         if (null !== $name) {
@@ -101,6 +116,9 @@ final class TimingCollector
         return $this->timing;
     }
 
+    /**
+     * @return ($name is string ? TimingData : TimingMap)
+     */
     public function getTotalTiming(?string $name = null): array
     {
         if (null !== $name) {

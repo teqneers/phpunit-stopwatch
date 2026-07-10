@@ -7,14 +7,12 @@ on: # yamllint disable-line rule:truthy
     paths-ignore:
       - "README.md"
       - "LICENSE.md"
-      - ".scrutinizer.yml"
       - ".editorconfig"
     branches: ["main"]
   pull_request:
     paths-ignore:
       - "README.md"
       - "LICENSE.md"
-      - ".scrutinizer.yml"
       - ".editorconfig"
     branches: ["main"]
 
@@ -46,9 +44,6 @@ jobs:
         run: "echo 'PHP ${{ matrix.php-version }} is experimental'"
       - name: "checkout project"
         uses: "actions/checkout@v4"
-        with:
-          # needed by scrutinizer
-          fetch-depth: 2
 
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
@@ -80,7 +75,7 @@ jobs:
       # The test job only needs PHPUnit; the analysis tooling (psalm 6 etc.) caps
       # the PHP range at 8.4 and is exercised by the dedicated analysis jobs instead.
       - name: "Remove analysis-only dev tools"
-        run: "composer remove --dev --no-update vimeo/psalm psalm/plugin-phpunit rector/rector ergebnis/php-cs-fixer-config ergebnis/composer-normalize ergebnis/license scrutinizer/ocular"
+        run: "composer remove --dev --no-update vimeo/psalm psalm/plugin-phpunit rector/rector ergebnis/php-cs-fixer-config ergebnis/composer-normalize ergebnis/license"
 
       - name: "Install dependencies"
         run: "composer ${{ matrix.composer-param }}"
@@ -489,7 +484,7 @@ jobs:
       # Infection ships its own php-parser; dropping the analysis tools keeps their
       # php-parser out of the project autoload so it cannot shadow infection's.
       - name: "Remove analysis-only dev tools"
-        run: "composer remove --dev --no-update vimeo/psalm psalm/plugin-phpunit rector/rector ergebnis/php-cs-fixer-config ergebnis/composer-normalize ergebnis/license scrutinizer/ocular"
+        run: "composer remove --dev --no-update vimeo/psalm psalm/plugin-phpunit rector/rector ergebnis/php-cs-fixer-config ergebnis/composer-normalize ergebnis/license"
 
       - name: "Install dependencies"
         run: "composer update --no-progress --prefer-dist"
