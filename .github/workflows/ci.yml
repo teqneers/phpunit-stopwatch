@@ -91,7 +91,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Upload coverage reports to codecov.io"
-        uses: "codecov/codecov-action@v4"
+        uses: "codecov/codecov-action@v7"
         with:
           token: "${{ secrets.CODECOV_TOKEN }}"
           slug: "teqneers/phpunit-stopwatch"
