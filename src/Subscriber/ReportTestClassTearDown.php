@@ -22,7 +22,7 @@ final class ReportTestClassTearDown implements AfterLastTestMethodFinishedSubscr
 {
     public function __construct(
         private readonly TimingCollector $stopwatch,
-        readonly Reporter $reporter,
+        public readonly Reporter $reporter,
     ) {
     }
 

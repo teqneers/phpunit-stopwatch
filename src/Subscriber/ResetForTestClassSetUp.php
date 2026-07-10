@@ -19,9 +19,8 @@ use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
 final class ResetForTestClassSetUp implements BeforeFirstTestMethodCalledSubscriber
 {
-    public function __construct(
-        private readonly TimingCollector $stopwatch,
-    ) {
+    public function __construct(private readonly TimingCollector $stopwatch)
+    {
     }
 
     public function notify(BeforeFirstTestMethodCalled $event): void

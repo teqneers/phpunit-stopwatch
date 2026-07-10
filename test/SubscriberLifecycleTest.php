@@ -70,7 +70,7 @@ final class SubscriberLifecycleTest extends TestCase
         Stopwatch::start('bootstrap');
         $this->clock->sleep(2);
         Stopwatch::stop('bootstrap');
-        $setUpReport = $this->capture(static fn () => $reportClassSetUp->notify(self::fakeEventTestBeforeFirstTestMethodFinished()));
+        $setUpReport = self::capture(static fn () => $reportClassSetUp->notify(self::fakeEventTestBeforeFirstTestMethodFinished()));
 
         // === test 1: work runs for 3s ===
         $resetTest->notify(self::fakeEventPreparationStarted());
@@ -79,7 +79,7 @@ final class SubscriberLifecycleTest extends TestCase
         $this->clock->sleep(3);
         Stopwatch::stop('work');
         $finishedOne = self::fakeEventTestFinished(testMethod: self::fakeTestMethod('MyTest', 'testOne'));
-        $test1Report = $this->capture(static function () use ($testStop, $reportTest, $finishedOne): void {
+        $test1Report = self::capture(static function () use ($testStop, $reportTest, $finishedOne): void {
             $testStop->notify($finishedOne);   // stops 'Test' BEFORE the per-test report reads it
             $reportTest->notify($finishedOne);
         });
@@ -91,17 +91,17 @@ final class SubscriberLifecycleTest extends TestCase
         $this->clock->sleep(5);
         Stopwatch::stop('work');
         $finishedTwo = self::fakeEventTestFinished(testMethod: self::fakeTestMethod('MyTest', 'testTwo'));
-        $test2Report = $this->capture(static function () use ($testStop, $reportTest, $finishedTwo): void {
+        $test2Report = self::capture(static function () use ($testStop, $reportTest, $finishedTwo): void {
             $testStop->notify($finishedTwo);
             $reportTest->notify($finishedTwo);
         });
 
         // === class tear-down ===
-        $tearDownReport = $this->capture(static fn () => $reportClassTearDown->notify(self::fakeEventAfterLastTestMethodFinished()));
+        $tearDownReport = self::capture(static fn () => $reportClassTearDown->notify(self::fakeEventAfterLastTestMethodFinished()));
         $resetClassTearDown->notify(self::fakeEventTestSuiteFinished());
 
         // === totals ===
-        $totalsReport = $this->capture(static fn () => $totalReport->notify(self::fakeEventApplicationFinished()));
+        $totalsReport = self::capture(static fn () => $totalReport->notify(self::fakeEventApplicationFinished()));
 
         // --- class set-up report shows the measured bootstrap step ---
         self::assertStringContainsString('Stopwatch for TestClassNameBefore SetUp', $setUpReport);
@@ -133,7 +133,7 @@ final class SubscriberLifecycleTest extends TestCase
     /**
      * @param callable():void $emit
      */
-    private function capture(callable $emit): string
+    private static function capture(callable $emit): string
     {
         \ob_start();
 

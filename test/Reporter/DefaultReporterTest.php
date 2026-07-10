@@ -224,8 +224,7 @@ EOD,
                 'times'    => 1,
             ],
         ];
-        $current = [
-        ];
+        $current = [];
 
         self::assertSame(
             '',
@@ -266,8 +265,7 @@ EOD,
     {
         $reporter = new DefaultReporter();
 
-        $totals = [
-        ];
+        $totals  = [];
         $current = null;
 
         self::assertSame(

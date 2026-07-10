@@ -36,8 +36,8 @@ final class DefaultReporter implements Reporter
                     $output .= \sprintf(
                         "- %-{$nameWidth}s %-s TOTAL %-s\n",
                         $printName,
-                        $this->measureString($stopWatch),
-                        $this->measureString($total),
+                        self::measureString($stopWatch),
+                        self::measureString($total),
                     );
                 }
             }
@@ -56,7 +56,7 @@ final class DefaultReporter implements Reporter
                 $output .= \sprintf(
                     "- %-{$nameWidth}s TOTAL %-s\n",
                     $printName,
-                    $this->measureString($total),
+                    self::measureString($total),
                 );
             }
         }
@@ -64,7 +64,7 @@ final class DefaultReporter implements Reporter
         return $output;
     }
 
-    private function measureString(array $dataPoint): string
+    private static function measureString(array $dataPoint): string
     {
         $times    = $dataPoint['times'];
         $duration = $dataPoint['duration'] ?? 0.0;

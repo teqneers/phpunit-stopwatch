@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.23.1@8471a896ccea3526b26d082f4461eeea467f10a4">
+<files psalm-version="6.16.1@f1f5de594dc76faf8784e02d3dc4716c91c6f6ac">
   <file src="src/Reporter/DefaultReporter.php">
     <MixedArgument>
-      <code><![CDATA[$dataPoint['duration']]]></code>
-      <code><![CDATA[$dataPoint['times']]]></code>
-      <code><![CDATA[0 < $dataPoint['times'] ? $dataPoint['duration'] / $dataPoint['times'] : '-']]></code>
+      <code><![CDATA[$duration]]></code>
+      <code><![CDATA[$duration / $times]]></code>
+      <code><![CDATA[$times]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
       <code><![CDATA[$name]]></code>
@@ -12,8 +12,12 @@
       <code><![CDATA[$name]]></code>
       <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
+    <MixedAssignment>
+      <code><![CDATA[$duration]]></code>
+      <code><![CDATA[$times]]></code>
+    </MixedAssignment>
     <MixedOperand>
-      <code><![CDATA[$dataPoint['duration']]]></code>
+      <code><![CDATA[$times]]></code>
     </MixedOperand>
   </file>
   <file src="src/TimingCollector.php">
@@ -35,10 +39,6 @@
     <MixedAssignment>
       <code><![CDATA[$duration]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[array]]></code>
-      <code><![CDATA[array]]></code>
-    </MixedInferredReturnType>
     <MixedOperand>
       <code><![CDATA[$this->timing[$name]['duration']]]></code>
       <code><![CDATA[$this->timing[$name]['start']]]></code>
@@ -50,6 +50,43 @@
       <code><![CDATA[$this->timing[$name]]]></code>
       <code><![CDATA[$this->totalTiming[$name]]]></code>
     </MixedReturnStatement>
+  </file>
+  <file src="test/EndToEnd/EndToEndTest.php">
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$outputLines]]></code>
+    </MixedArgumentTypeCoercion>
+  </file>
+  <file src="test/Subscriber/ReportTestClassSetUpTest.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[\ob_get_clean()]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
+  </file>
+  <file src="test/Subscriber/ReportTestClassTearDownTest.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[\ob_get_clean()]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
+  </file>
+  <file src="test/Subscriber/ReportTestTest.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[\ob_get_clean()]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
+  </file>
+  <file src="test/Subscriber/TotalReportTest.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[\ob_get_clean()]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
   </file>
   <file src="test/Util/Helper.php">
     <ArgumentTypeCoercion>

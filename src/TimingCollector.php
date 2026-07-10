@@ -22,9 +22,8 @@ final class TimingCollector
     private array $timing      = [];
     private array $totalTiming = [];
 
-    public function __construct(
-        private readonly ClockInterface $clock = new Clock(),
-    ) {
+    public function __construct(private readonly ClockInterface $clock = new Clock())
+    {
     }
 
     public function reset(?string $name = null): void

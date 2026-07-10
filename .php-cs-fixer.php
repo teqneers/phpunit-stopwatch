@@ -28,13 +28,11 @@ $license->save();
 
 $ruleSet = PhpCsFixer\Config\RuleSet\Php81::create()
     ->withHeader($license->header())
-    ->withRules(
-        PhpCsFixer\Config\Rules::fromArray([
-            'mb_str_functions'       => false,
-            'cast_spaces'            => ['space' => 'none'],
-            'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
-        ]),
-    );
+    ->withRules(PhpCsFixer\Config\Rules::fromArray([
+        'mb_str_functions'       => false,
+        'cast_spaces'            => ['space' => 'none'],
+        'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
+    ]),);
 
 $config = PhpCsFixer\Config\Factory::fromRuleSet($ruleSet);
 
@@ -47,6 +45,9 @@ $config->getFinder()
         'vendor/',
         'phar/',
     ])
+    // Not self-linted: a trailing-comma fixer tokenizes this file differently on
+    // PHP 8.4 vs 8.5, which would otherwise flip-flop between analysis environments.
+    ->notName('.php-cs-fixer.php')
     ->ignoreDotFiles(false)
     ->in(__DIR__);
 

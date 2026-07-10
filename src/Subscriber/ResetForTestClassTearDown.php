@@ -18,9 +18,8 @@ use TQ\Testing\Extension\Stopwatch\TimingCollector;
 
 final class ResetForTestClassTearDown implements FinishedSubscriber
 {
-    public function __construct(
-        private readonly TimingCollector $stopwatch,
-    ) {
+    public function __construct(private readonly TimingCollector $stopwatch)
+    {
     }
 
     public function notify(\PHPUnit\Event\TestSuite\Finished $event): void
