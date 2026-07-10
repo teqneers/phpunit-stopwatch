@@ -27,8 +27,9 @@ a [Phar archive](https://www.php.net/manual/en/book.phar.php).
 
 The extension is compatible with the following versions of `phpunit/phpunit`:
 
-- [`phpunit/phpunit:^10.1.0`](https://github.com/sebastianbergmann/phpunit/tree/10.1.0)
 - [`phpunit/phpunit:^11.0.0`](https://github.com/sebastianbergmann/phpunit/tree/11.0.0)
+- [`phpunit/phpunit:^12.0.0`](https://github.com/sebastianbergmann/phpunit/tree/12.0.0)
+- [`phpunit/phpunit:^13.0.0`](https://github.com/sebastianbergmann/phpunit/tree/13.0.0)
 
 Once you've added some measurement points to your code, the extension will stop watch and count them. The results are
 displayed for each test and as a total report at the end of the test run.
@@ -118,15 +119,12 @@ depends on the version of `phpunit/phpunit` you are using.
 
 To bootstrap the extension as a `composer` package when using
 
-- `phpunit/phpunit:^10.0.0`
 - `phpunit/phpunit:^11.0.0`
+- `phpunit/phpunit:^12.0.0`
+- `phpunit/phpunit:^13.0.0`
 
 adjust your `phpunit.xml` configuration file and configure the
-
-- [`extensions` element](https://docs.phpunit.de/en/10.5/configuration.html#the-extensions-element)
-  on [`phpunit/phpunit:^10.1.0`](https://docs.phpunit.de/en/10.5/)
-- [`extensions` element](https://docs.phpunit.de/en/11.0/configuration.html#the-extensions-element)
-  on [`phpunit/phpunit:^11.0.0`](https://docs.phpunit.de/en/11.0/)
+[`extensions` element](https://docs.phpunit.de/en/11.5/configuration.html#the-extensions-element).
 
 ```diff
  <phpunit
@@ -149,17 +147,13 @@ adjust your `phpunit.xml` configuration file and configure the
 
 To bootstrap the extension as a PHAR when using
 
-- `phpunit/phpunit:^10.1.0`
 - `phpunit/phpunit:^11.0.0`
+- `phpunit/phpunit:^12.0.0`
+- `phpunit/phpunit:^13.0.0`
 
 adjust your `phpunit.xml` configuration file and configure the
-
-- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/10.5/configuration.html#the-extensionsdirectory-attribute)
-  and the [`extensions` element](https://docs.phpunit.de/en/10.5/configuration.html#the-extensions-element)
-  on [`phpunit/phpunit:^10.0.0`](https://docs.phpunit.de/en/10.5/)
-- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/11.0/configuration.html#the-extensionsdirectory-attribute)
-  and the [`extensions` element](https://docs.phpunit.de/en/11.0/configuration.html#the-extensions-element)
-  on [`phpunit/phpunit:^11.0.0`](https://docs.phpunit.de/en/11.0/)
+[`extensionsDirectory` attribute](https://docs.phpunit.de/en/11.5/configuration.html#the-extensionsdirectory-attribute)
+and the [`extensions` element](https://docs.phpunit.de/en/11.5/configuration.html#the-extensions-element).
 
 ```diff
  <phpunit

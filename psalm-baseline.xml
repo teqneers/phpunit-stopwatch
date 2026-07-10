@@ -98,12 +98,159 @@
       <code><![CDATA[$methodName]]></code>
       <code><![CDATA[$methodName]]></code>
       <code><![CDATA[$name]]></code>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$result]]></code>
+      <code><![CDATA[$testClassName]]></code>
+      <code><![CDATA[$testClassName]]></code>
+      <code><![CDATA[$testClassName]]></code>
       <code><![CDATA[$testData]]></code>
     </ArgumentTypeCoercion>
+    <InternalMethod>
+      <code><![CDATA[new AfterLastTestMethodFinished(
+            $info ?? self::fakeTelemetryInfo(),
+            $testClassName,
+            $calledMethods ?? self::fakeClassMethod(),
+        )]]></code>
+      <code><![CDATA[new ApplicationFinished(
+            $info ?? self::fakeTelemetryInfo(),
+            $shellExitCode,
+        )]]></code>
+      <code><![CDATA[new BeforeFirstTestMethodCalled(
+            $info ?? self::fakeTelemetryInfo(),
+            $testClassName,
+            $calledMethod ?? self::fakeClassMethod(),
+        )]]></code>
+      <code><![CDATA[new BeforeFirstTestMethodFinished(
+            $info ?? self::fakeTelemetryInfo(),
+            $testClassName,
+            $calledMethods ?? self::fakeClassMethod(),
+        )]]></code>
+      <code><![CDATA[new ClassMethod(
+            $className,
+            $methodName,
+        )]]></code>
+      <code><![CDATA[new Finished(
+            $info       ?? self::fakeTelemetryInfo(),
+            $testMethod ?? self::fakeTestMethod(),
+            $result,
+        )]]></code>
+      <code><![CDATA[new GarbageCollectorStatus(
+                $runs,
+                $collected,
+                $threshold,
+                $roots,
+                $running,
+                $protected,
+                $full,
+                $bufferSize,
+            )]]></code>
+      <code><![CDATA[new GarbageCollectorStatus(
+            $runs,
+            $collected,
+            $threshold,
+            $roots,
+            $applicationTime,
+            $collectorTime,
+            $destructorTime,
+            $freeTime,
+            $running,
+            $protected,
+            $full,
+            $bufferSize,
+        )]]></code>
+      <code><![CDATA[new Info(
+                $snapshot,
+                $duration,
+                $memoryUsage,
+                $time,
+                $peakMemoryUsage,
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+            )]]></code>
+      <code><![CDATA[new Info(
+            $snapshot,
+            $duration,
+            $memoryUsage,
+            $time,
+            $peakMemoryUsage,
+        )]]></code>
+      <code><![CDATA[new PreparationStarted(
+            $info ?? self::fakeTelemetryInfo(),
+            $test ?? self::fakeTestMethod(),
+        )]]></code>
+      <code><![CDATA[new Prepared(
+            $info ?? self::fakeTelemetryInfo(),
+            $test ?? self::fakeTestMethod(),
+        )]]></code>
+      <code><![CDATA[new Snapshot(
+                $time,
+                $memoryUsage,
+                $peakMemoryUsage,
+                $garbageCollectorStatus,
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+            )]]></code>
+      <code><![CDATA[new Snapshot(
+            $time,
+            $memoryUsage,
+            $peakMemoryUsage,
+            $garbageCollectorStatus,
+        )]]></code>
+      <code><![CDATA[new TestDox(
+            $prettifiedClassName,
+            $prettifiedMethodName,
+            $prettifiedAndColorizedMethodName,
+        )]]></code>
+      <code><![CDATA[new TestMethod(
+            $className,
+            $methodName,
+            $file,
+            $line,
+            $testDox ?? self::fakeTestDox(),
+            MetadataCollection::fromArray($metadata),
+            TestDataCollection::fromArray($testData),
+        )]]></code>
+      <code><![CDATA[new TestSuiteFinished(
+            $info      ?? self::fakeTelemetryInfo(),
+            $testSuite ?? self::fakeTestSuite(),
+        )]]></code>
+      <code><![CDATA[new TestSuiteForTestClass(
+                $name,
+                $size,
+                TestCollection::fromArray($tests),
+                $name,
+                $file,
+                $line,
+            )]]></code>
+      <code><![CDATA[new TestSuiteForTestClass(
+            $name,
+            $size,
+            TestCollection::fromArray($tests),
+            $file,
+            $line,
+        )]]></code>
+    </InternalMethod>
     <InvalidArgument>
+      <code><![CDATA[$file]]></code>
       <code><![CDATA[$full]]></code>
       <code><![CDATA[$protected]]></code>
       <code><![CDATA[$running]]></code>
     </InvalidArgument>
+    <PossiblyNullArgument>
+      <code><![CDATA[$applicationTime]]></code>
+      <code><![CDATA[$bufferSize]]></code>
+      <code><![CDATA[$bufferSize]]></code>
+      <code><![CDATA[$collectorTime]]></code>
+      <code><![CDATA[$destructorTime]]></code>
+      <code><![CDATA[$freeTime]]></code>
+      <code><![CDATA[$full]]></code>
+      <code><![CDATA[$protected]]></code>
+      <code><![CDATA[$running]]></code>
+    </PossiblyNullArgument>
   </file>
 </files>

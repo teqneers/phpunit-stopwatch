@@ -29,23 +29,16 @@ jobs:
       fail-fast: false
       matrix:
         php-version: [
-          "8.1",
           "8.2",
           "8.3",
+          "8.4",
+          "8.5",
         ]
         composer-param: [
           "update --no-progress --prefer-dist --prefer-lowest",
           "update --no-progress --prefer-dist"
         ]
         experimental: [false]
-        include:
-          # also try a future version
-          - php-version: "8.4"
-            composer-param: "update --no-progress --prefer-dist --prefer-lowest"
-            experimental: true
-          - php-version: "8.4"
-            composer-param: "update --no-progress --prefer-dist"
-            experimental: true
     name: "PHP ${{ matrix.php-version }} test"
     steps:
       - name: "Check if PHP ${{ matrix.php-version }} is supported"
@@ -84,12 +77,17 @@ jobs:
           restore-keys: "${{ runner.os }}-composer-"
         continue-on-error: "${{ matrix.experimental }}"
 
+      # The test job only needs PHPUnit; the analysis tooling (psalm 6 etc.) caps
+      # the PHP range at 8.4 and is exercised by the dedicated analysis jobs instead.
+      - name: "Remove analysis-only dev tools"
+        run: "composer remove --dev --no-update vimeo/psalm psalm/plugin-phpunit rector/rector ergebnis/php-cs-fixer-config ergebnis/composer-normalize ergebnis/license scrutinizer/ocular"
+
       - name: "Install dependencies"
         run: "composer ${{ matrix.composer-param }}"
         continue-on-error: "${{ matrix.experimental }}"
 
-      - name: "Validate composer.json and composer.lock"
-        run: "composer validate --ansi --strict"
+      - name: "Validate composer.json"
+        run: "composer validate --ansi"
         continue-on-error: "${{ matrix.experimental }}"
 
       # Run phpunit with code coverage
@@ -103,21 +101,6 @@ jobs:
           token: "${{ secrets.CODECOV_TOKEN }}"
           slug: "teqneers/phpunit-stopwatch"
           files: "coverage.clover"
-
-      # Uploading reports for analysis
-      - name: "Upload code-coverage to scrutinizer"
-        run: "vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover"
-        continue-on-error: "${{ matrix.experimental }}"
-
-      - name: "Publish code coverage to Code Climate"
-        uses: "paambaati/codeclimate-action@v5"
-        env:
-          CC_TEST_REPORTER_ID: "${{ secrets.CC_TEST_REPORTER_ID }}"
-        with:
-          coverageCommand: "vendor/bin/phpunit --coverage-clover=coverage.clover"
-          coverageLocations: |
-            coverage.clover:clover
-        continue-on-error: "${{ matrix.experimental }}"
 
   coding-standards:
     name: "Coding Standards"

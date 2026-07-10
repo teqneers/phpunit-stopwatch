@@ -21,6 +21,7 @@ use PHPUnit\Event\Code\Test;
 use PHPUnit\Event\Code\TestCollection;
 use PHPUnit\Event\Code\TestDox;
 use PHPUnit\Event\Code\TestMethod;
+use PHPUnit\Event\Telemetry\CpuTime;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Event\Telemetry\GarbageCollectorStatus;
 use PHPUnit\Event\Telemetry\HRTime;
@@ -112,6 +113,19 @@ trait Helper
         string $file = 'TestFile',
         int $line = 1,
     ): TestSuite {
+        if (\version_compare(Version::id(), '13.0', '>=')) {
+            // PHPUnit 13 inserted a prettified-name argument before $file.
+            /** @psalm-suppress TooManyArguments */
+            return new TestSuiteForTestClass(
+                $name,
+                $size,
+                TestCollection::fromArray($tests),
+                $name,
+                $file,
+                $line,
+            );
+        }
+
         return new TestSuiteForTestClass(
             $name,
             $size,
@@ -171,11 +185,30 @@ trait Helper
         ?MemoryUsage $peakMemoryUsage = null,
         ?GarbageCollectorStatus $garbageCollectorStatus = null,
     ): Snapshot {
+        $time                   ??= HRTime::fromSecondsAndNanoseconds(0, 0);
+        $memoryUsage            ??= MemoryUsage::fromBytes(0);
+        $peakMemoryUsage        ??= MemoryUsage::fromBytes(0);
+        $garbageCollectorStatus ??= self::fakeGarbageCollectorStatus();
+
+        if (\version_compare(Version::id(), '13.0', '>=')) {
+            // PHPUnit 13 added user/system/total CPU-time fields to the telemetry Snapshot.
+            /** @psalm-suppress UndefinedClass, TooManyArguments, MixedArgument */
+            return new Snapshot(
+                $time,
+                $memoryUsage,
+                $peakMemoryUsage,
+                $garbageCollectorStatus,
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+            );
+        }
+
         return new Snapshot(
-            $time                   ?? HRTime::fromSecondsAndNanoseconds(0, 0),
-            $memoryUsage            ?? MemoryUsage::fromBytes(0),
-            $peakMemoryUsage        ?? MemoryUsage::fromBytes(0),
-            $garbageCollectorStatus ?? self::fakeGarbageCollectorStatus(),
+            $time,
+            $memoryUsage,
+            $peakMemoryUsage,
+            $garbageCollectorStatus,
         );
     }
 
@@ -186,12 +219,36 @@ trait Helper
         ?Duration $time = null,
         ?MemoryUsage $peakMemoryUsage = null,
     ): Info {
+        $snapshot        ??= self::fakeTelemetrySnapshot();
+        $duration        ??= Duration::fromSecondsAndNanoseconds(0, 0);
+        $memoryUsage     ??= MemoryUsage::fromBytes(0);
+        $time            ??= Duration::fromSecondsAndNanoseconds(0, 0);
+        $peakMemoryUsage ??= MemoryUsage::fromBytes(0);
+
+        if (\version_compare(Version::id(), '13.0', '>=')) {
+            // PHPUnit 13 added six CPU-time fields to the telemetry Info.
+            /** @psalm-suppress UndefinedClass, TooManyArguments, MixedArgument */
+            return new Info(
+                $snapshot,
+                $duration,
+                $memoryUsage,
+                $time,
+                $peakMemoryUsage,
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+                CpuTime::fromSecondsAndNanoseconds(0, 0),
+            );
+        }
+
         return new Info(
-            $snapshot        ?? self::fakeTelemetrySnapshot(),
-            $duration        ?? Duration::fromSecondsAndNanoseconds(0, 0),
-            $memoryUsage     ?? MemoryUsage::fromBytes(0),
-            $time            ?? Duration::fromSecondsAndNanoseconds(0, 0),
-            $peakMemoryUsage ?? MemoryUsage::fromBytes(0),
+            $snapshot,
+            $duration,
+            $memoryUsage,
+            $time,
+            $peakMemoryUsage,
         );
     }
 
