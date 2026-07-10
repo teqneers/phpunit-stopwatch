@@ -1,0 +1,77 @@
+# Builds the PHAR and attaches it to the GitHub release. If the GPG_SIGNING_KEY
+# (and optional GPG_PASSPHRASE) repository secrets are configured, a detached
+# signature is attached too (required for phar.io / phive distribution).
+name: "Release"
+
+on: # yamllint disable-line rule:truthy
+  release:
+    types: ["published"]
+
+permissions:
+  contents: "write"
+
+jobs:
+  phar:
+    name: "Build and attach the PHAR"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 10
+
+    env:
+      GPG_SIGNING_KEY: "${{ secrets.GPG_SIGNING_KEY }}"
+
+    strategy:
+      matrix:
+        # humbug/box 4.6 fatals on PHP 8.4+ (its bundled symfony/console), so build on 8.3.
+        php-version: ["8.3"]
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          tools: "composer:v2, phive"
+          coverage: "none"
+
+      - name: "Install dependencies"
+        run: "composer install --no-progress"
+
+      - name: "Create phive home directory"
+        run: "mkdir -p .build/phive"
+        shell: "bash"
+
+      - name: "Install dependencies with phive"
+        env:
+          PHIVE_HOME: ".build/phive"
+        run: "phive --no-progress install --trust-gpg-keys 0x2DF45277AEF09A2F,0x033E5F8D801A2F8D"
+        shell: "bash"
+
+      - name: "Build the PHAR (phpunit is provided by the host, not bundled)"
+        run: |
+          composer remove --no-interaction --no-scripts phpunit/phpunit
+          .phive/box compile --config=box.json
+
+      - name: "Sign the PHAR"
+        if: "${{ env.GPG_SIGNING_KEY != '' }}"
+        env:
+          GPG_PASSPHRASE: "${{ secrets.GPG_PASSPHRASE }}"
+        run: |
+          printf '%s' "$GPG_SIGNING_KEY" | gpg --batch --import
+          gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" \
+            --detach-sign --armor \
+            --output .build/phar/phpunit-stopwatch.phar.asc \
+            .build/phar/phpunit-stopwatch.phar
+
+      - name: "Attach the PHAR to the release"
+        env:
+          GH_TOKEN: "${{ github.token }}"
+          TAG: "${{ github.event.release.tag_name }}"
+        run: |
+          gh release upload "$TAG" .build/phar/phpunit-stopwatch.phar --clobber
+          if [ -f .build/phar/phpunit-stopwatch.phar.asc ]; then
+            gh release upload "$TAG" .build/phar/phpunit-stopwatch.phar.asc --clobber
+          fi
+
+# vim: syntax=yaml ts=2 sw=2 et sr softtabstop=2 autoindent

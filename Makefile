@@ -80,3 +80,8 @@ docker-analysis: ## Runs psalm and php-cs-fixer (dry-run) in the PHP 8.3 contain
 .PHONY: docker-shell
 docker-shell: ## Opens a shell in a PHP container, e.g. make docker-shell PHP=83
 	docker compose run --rm "php$(PHP)" sh
+
+.PHONY: mutation-tests
+mutation-tests: vendor ## Runs mutation testing with infection/infection (needs a coverage driver: pcov or xdebug)
+	@test -f .build/infection.phar || curl -Ls --create-dirs -o .build/infection.phar https://github.com/infection/infection/releases/latest/download/infection.phar
+	php .build/infection.phar --threads=max --min-covered-msi=95 --test-framework-options="--exclude-group=e2e"
