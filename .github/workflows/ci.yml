@@ -65,7 +65,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -135,7 +135,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -150,7 +150,7 @@ jobs:
         run: "composer normalize --ansi --dry-run"
 
       - name: "Cache cache directory for friendsofphp/php-cs-fixer"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: ".build/php-cs-fixer"
           key: "php-${{ matrix.php-version }}-php-cs-fixer-${{ github.ref_name }}"
@@ -192,7 +192,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -208,7 +208,7 @@ jobs:
         shell: "bash"
 
       - name: "Cache dependencies installed with phive"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: ".build/phive"
           key: "phive-hashFiles('**/phars.xml')"
@@ -254,7 +254,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -266,7 +266,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache directory for rector/rector"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: ".build/rector"
           key: "php-${{ matrix.php-version }}-rector-${{ github.ref_name }}"
@@ -308,7 +308,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -320,7 +320,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache directory for rector/rector"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: ".build/rector"
           key: "php-${{ matrix.php-version }}-rector-${{ github.ref_name }}"
@@ -362,7 +362,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -374,7 +374,7 @@ jobs:
         continue-on-error: "${{ matrix.experimental }}"
 
       - name: "Cache directory for rector/rector"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: ".build/rector"
           key: "php-${{ matrix.php-version }}-rector-${{ github.ref_name }}"
@@ -414,7 +414,7 @@ jobs:
         run: "echo \"dir=$(composer config cache-dir)\" >> $GITHUB_OUTPUT"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -428,7 +428,7 @@ jobs:
         shell: "bash"
 
       - name: "Cache dependencies installed with phive"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: ".build/phive"
           key: "phive-${{ hashFiles('**/phars.xml') }}"
@@ -475,7 +475,7 @@ jobs:
         run: "echo \"dir=$(composer config cache-dir)\" >> $GITHUB_OUTPUT"
 
       - name: "Cache composer dependencies"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: "${{ steps.composer-cache.outputs.dir }}"
           key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}"
