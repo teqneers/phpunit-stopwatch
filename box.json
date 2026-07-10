@@ -8,7 +8,6 @@
   "files": [
     "manifest.xml"
   ],
-  "git": "git",
   "main": "phar/phpunit-stopwatch.php",
   "output": ".build/phar/phpunit-stopwatch.phar"
 }
