@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace TQ\Testing\Extension\Stopwatch\Test\EndToEnd;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,6 +26,7 @@ use PHPUnit\Framework\TestCase;
  * (Configuration cannot be constructed and subscribers cannot be registered once
  * PHPUnit has sealed its event system).
  */
+#[Group('e2e')]
 final class EndToEndTest extends TestCase
 {
     public function testExtensionEmitsReportsUnderRealPhpunit(): void

@@ -238,6 +238,32 @@ EOD,
     }
 
     /**
+     * A name of exactly 50 characters sits on the truncation boundary (`> 50`) and
+     * must render in full — pins the strict `>` at DefaultReporter:35 and :55.
+     */
+    public function testNameOfExactlyFiftyCharactersIsNotTruncated(): void
+    {
+        $reporter = new DefaultReporter();
+        $name     = \str_repeat('a', 50);
+        $point    = [
+            'start'    => 1704067200.0,
+            'end'      => 1704067210.0,
+            'duration' => 1.0,
+            'times'    => 1,
+        ];
+
+        self::assertSame(50, \strlen($name));
+
+        $perTest = $reporter->report('headline', [$name => $point], [$name => $point]);
+        self::assertStringContainsString($name, $perTest);
+        self::assertStringNotContainsString('...', $perTest);
+
+        $totalsOnly = $reporter->report('headline', [$name => $point], null);
+        self::assertStringContainsString($name, $totalsOnly);
+        self::assertStringNotContainsString('...', $totalsOnly);
+    }
+
+    /**
      * An empty totals map produces an empty summary report.
      */
     public function testReturnsEmptyStringWhenTotalsAreEmpty(): void

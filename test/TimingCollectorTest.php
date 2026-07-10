@@ -146,6 +146,28 @@ final class TimingCollectorTest extends TestCase
      * Documents the current shape of a timing record so the upcoming value-object
      * refactor changes it deliberately rather than by accident.
      */
+    /**
+     * A timer stopped more than once without an intervening reset accumulates the
+     * elapsed-since-start duration on each stop — pins the `+=` at TimingCollector:79,
+     * which a single stop per timer cannot distinguish from a plain assignment.
+     */
+    public function testDurationAccumulatesAcrossRepeatedStops(): void
+    {
+        $this->collector->start('multi');
+        $this->clock->sleep(2);
+        $this->collector->stop('multi');
+        $this->clock->sleep(3);
+        $this->collector->stop('multi');
+
+        $timing = $this->collector->getTiming('multi');
+        self::assertSame(7.0, $timing['duration']);
+        self::assertSame(2, $timing['times']);
+
+        $total = $this->collector->getTotalTiming('multi');
+        self::assertSame(7.0, $total['duration']);
+        self::assertSame(2, $total['times']);
+    }
+
     public function testTimingRecordHasExpectedKeys(): void
     {
         $this->collector->start('alpha');

@@ -12,6 +12,7 @@
 /composer-require-checker.json  export-ignore
 /composer.lock                  export-ignore
 /docker-compose.yml             export-ignore
+/infection.json5                export-ignore
 /Makefile                       export-ignore
 /psalm-baseline.xml             export-ignore
 /psalm.xml                      export-ignore
