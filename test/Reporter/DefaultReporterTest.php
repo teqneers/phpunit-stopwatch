@@ -173,12 +173,8 @@ EOD,
 
     /**
      * Golden master for a started-but-never-stopped timer (times === 0,
-     * duration === null).
-     *
-     * FIXME: the average currently renders as "Ø   0.00" because
-     * DefaultReporter::measureString() feeds the '-' fallback into a %6.2f
-     * format, which PHP coerces to 0.00 (see task: fix measureString dash bug).
-     * When that bug is fixed this expected output MUST change to show a dash.
+     * duration === null): the average renders as a right-aligned dash because no
+     * meaningful average exists, and the incomplete duration renders as 0.000.
      */
     public function testRendersUnstoppedTimerWithZeroTimes(): void
     {
@@ -206,7 +202,7 @@ EOD,
 
 
 Zero:
-- Unstopped                                               0.000secs (    0x, Ø   0.00) TOTAL      0.000secs (    0x, Ø   0.00)
+- Unstopped                                               0.000secs (    0x, Ø      -) TOTAL      0.000secs (    0x, Ø      -)
 
 EOD,
             $reporter->report('Zero', $totals, $current),

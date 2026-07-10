@@ -66,11 +66,15 @@ final class DefaultReporter implements Reporter
 
     private function measureString(array $dataPoint): string
     {
-        return \sprintf(
-            '%10.3fsecs (%5dx, Ø %6.2f)',
-            $dataPoint['duration'],
-            $dataPoint['times'],
-            0 < $dataPoint['times'] ? $dataPoint['duration'] / $dataPoint['times'] : '-',
-        );
+        $times    = $dataPoint['times'];
+        $duration = $dataPoint['duration'] ?? 0.0;
+
+        // Build the average as a string so the "-" fallback (used when a timer was
+        // started but never stopped) is not coerced to 0.00 by a %f specifier.
+        $average = 0 < $times
+            ? \sprintf('%6.2f', $duration / $times)
+            : \sprintf('%6s', '-');
+
+        return \sprintf('%10.3fsecs (%5dx, Ø %s)', $duration, $times, $average);
     }
 }
